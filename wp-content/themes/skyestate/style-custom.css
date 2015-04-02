@@ -1,0 +1,48 @@
+/* For Novaro's Theme Customization Style */
+/* body */
+body{font-family: 'Karla', sans-serif;}
+/* Top Nav */
+.topnav a{color:#07bec6; font-weight: normal; font-family:lato; text-transform: uppercase;  }
+.topnav li a:hover, .topnav li:hover a, .topnav .current_page_item> a, .topnav .current_page_item > a:hover, .topnav .current_page_parent > a, .topnav .current_page_parent > a:hover, .topnav .current-menu-parent > a, .topnav .current-menu-parent > a:hover, .topnav .current-menu-item > a, .topnav .current-menu-item > a:hover{color:#227fb1}
+.topnav > li:hover, .topnav > .current_page_item, .topnav > .current_page_parent, .topnav > .current-menu-parent, .topnav > .current-menu-ancestor, .topnav > .current_page_ancestor, .topnav > .current-menu-item{border: 0}
+.topnav li a, .topnav li a:visited, .gn-menu li a, .gn-menu li a:visited{font-family: 'Lato', sans-serif!important!important; }
+
+#outermain{padding:0;}
+
+/* outermiddle */
+#outermiddle {background-color:transparent}
+.flexslider-carousel .nvr-prop-box {box-shadow: 5px 5px 2px #058E93}
+.flexslider-carousel .nvr-prop-title { margin: 0 0 10px; text-align: center; text-transform: uppercase; }
+.flexslider-carousel .nvr-prop-title a{ color:#666666}
+
+.nvr-prop-address { background: none repeat scroll 0 0 #f3f3f3; margin: 0 -17px; padding: 10px; }
+
+
+/* footer */
+ #outerfooter, #footerwrapper { background-color: #1b5a81 !important;}
+
+ /*map slider form */
+ #advanced-search-box{display: none}
+
+ .callAction-full{background: #257cb1}
+ .border-btn p{text-align: center; margin:0px;}
+ .border-btn p a{border:1px solid #fff; color:#fff; padding:15px 20px; text-transform: uppercase; }
+ 
+ /* carousel properties */
+ .propcarousel :before{clear:both;}
+.propcarousel {width:1170px; margin: 0 auto;}
+
+/*titles*/
+.whoweare{background:url(images/who-we-are-icon.png) no-repeat 10px center #efedf4 ; padding-left:85px!important; width: auto;}
+.blocktitle{font-family: 'lato', sans-serif; font-size: 48px; font-weight: 100;   padding:15px 25px 15px 55px; text-transform:uppercase;   }
+.fproperties{background:url(images/fproperties-icon.png) no-repeat #07b5bd 10px center; color:#fff; width: auto; }
+
+/*buttons*/
+a.btn-green{font-size:18px; font-family: 'lato', sans-serif; padding:10px 25px; text-transform: uppercase; color:#fff; background: #94c55e; text-decoration: none }
+
+/*propertis hidden items */
+.nvr-prop-box span.meta-purpose, .nvr-prop-box span.meta-price {display:none;}
+
+/* alignments */
+.center{text-align: center}
+.prop-item-container{}

@@ -44,6 +44,8 @@ $nvr_shortname = THE_SHORTNAME;
 $nvr_initial = THE_INITIAL;
 
 wp_head(); /* the novaro' custom content for wp_head is in includes/header-functions.php */ ?>
+
+<script  type='text/javascript' src="js/custom-scripts.js"></script>
 </head><?php 
 
 $nvr_pid = nvr_get_postid();
@@ -118,6 +120,7 @@ if($nvr_txtContainerWidth>1100){
 	$nvr_bodyclass[] = 'nvr1100more';
 }
 ?>
+
 <body <?php body_class($nvr_bodyclass); ?>>
 
 

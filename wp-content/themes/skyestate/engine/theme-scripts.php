@@ -202,6 +202,9 @@ function nvr_script() {
 		
 		wp_register_script('jcustom', THE_JSURI .'custom.js', array('jquery'), '1.0', true);
 		wp_enqueue_script('jcustom');
+
+		wp_register_script('customjs', THE_JSURI .'custom-scripts.js', array('jquery'), '1.0', true);
+		wp_enqueue_script('customjs');
 		
 		$nvr_sliderEffect = nvr_get_option( $nvr_shortname . '_slider_effect' ,'fade'); 
 		$nvr_sliderInterval = nvr_get_option( $nvr_shortname . '_slider_interval' ,600);

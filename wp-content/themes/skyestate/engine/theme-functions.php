@@ -526,6 +526,7 @@ if(!function_exists('nvr_prop_get_box')){
 		}
 		
 		$nvr_custom = nvr_get_customdata($nvr_postid);
+                
 		$nvr_price = (isset($nvr_custom[$nvr_initial."_price"][0]))? $nvr_custom[$nvr_initial."_price"][0] : '';
 		$nvr_plabel = (isset($nvr_custom[$nvr_initial."_price_label"][0]))? $nvr_custom[$nvr_initial."_price_label"][0] : '';
 		$nvr_bed = (isset($nvr_custom[$nvr_initial."_room"][0]))? $nvr_custom[$nvr_initial."_room"][0] : '';
@@ -575,17 +576,19 @@ if(!function_exists('nvr_prop_get_box')){
 		
 		$nvr_city = implode(', ', $nvr_cityarr);
 		
-		if(!empty($nvr_price)){
-			$nvr_upper_meta .= '<span class="meta-price">'.nvr_show_price($nvr_price, $nvr_cursymbol, $nvr_curplace).' '.$nvr_plabel.'</span>';
-		}
-		
+//		if(!empty($nvr_price)){
+//			$nvr_upper_meta .= '<span class="meta-price">'.nvr_show_price($nvr_price, $nvr_cursymbol, $nvr_curplace).' '.$nvr_plabel.'</span>';
+//		}
+//		echo 'uihlkrijoptgupoe bu ewpouwepoiu'.$nvr_bigimageurl.'<br/>';
+//                exit();
+                
 		$nvr_output  .='<li class="prop-item-container '.esc_attr( $nvr_class ).'">';
 			$nvr_output  .='<div class="nvr-prop-box">';
 				$nvr_output  .='<div class="nvr-prop-img">';
 
-					if($nvr_upper_meta!=''){
-						$nvr_output .= '<div class="nvr-upper-meta">'.$nvr_upper_meta.'</div>';
-					}
+//					if($nvr_upper_meta!=''){
+//						$nvr_output .= '<div class="nvr-upper-meta">'.$nvr_upper_meta.'</div>';
+//					}
 					
 					$nvr_output .='<a class="image '.esc_attr( $nvr_rollover ).'" href="'.esc_url( $nvr_golink ).'" title="'.esc_attr( get_the_title($nvr_postid) ).'"></a>';
 					if($nvr_bigimageurl!=''){
@@ -595,34 +598,59 @@ if(!function_exists('nvr_prop_get_box')){
 					$nvr_output  .=$nvr_cf_thumb;
 					$nvr_output  .=$nvr_cf_full2;
 				$nvr_output  .='</div>';
-		
+                                // get the terms related to post
+				$nvr_output_meta = '';
+				if ( !empty( $nvr_type ) ) {
+//					$nvr_output_meta .= '<span class="nvr-prop-type"><i class="fa fa-building"></i>&nbsp; '. $nvr_type .'</span>';
+					$nvr_output_meta .= '<span class="nvr-prop-type"><i class="fa fa-building"></i>&nbsp; '. $nvr_type .'</span>';
+				}
 				$nvr_output  .='<div class="nvr-prop-text">';
 				
 					$nvr_output	.='<h2 class="nvr-prop-title"><a href="'.esc_url( get_permalink($nvr_postid) ).'" title="'.esc_attr( get_the_title($nvr_postid) ).'">'.get_the_title($nvr_postid).'</a></h2>';
-					$nvr_output_addr = nvr_string_limit_char($nvr_address.' '.$nvr_city.' '.$nvr_state.' '.$nvr_country, 40);
-					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.'</div>';
+//					$nvr_output_addr = nvr_string_limit_char($nvr_address.' '.$nvr_city.' '.$nvr_state.' '.$nvr_country, 40);
+					$nvr_output_addr = nvr_string_limit_char($nvr_city.', '.$nvr_state, 40);
+//					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.'</div>';
+					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.' <div class="alignright">'.$nvr_output_meta.'</div></div>';
 					$nvr_output  .='<div class="clearfix"></div>';
 				$nvr_output  .='</div>';
-				// get the terms related to post
-				$nvr_output_meta = '';
-				if ( !empty( $nvr_type ) ) {
-					$nvr_output_meta .= '<span class="nvr-prop-type"><i class="fa fa-building"></i>&nbsp; '. $nvr_type .'</span>';
-				}
+                                
+                                
+                                
+                                /*      post Content - Dev Comments    */
+				$nvr_output  .='<div class="nvr-prop-text">';
+				$content_post = get_post($nvr_postid);
+                                if(isset($content_post->post_content)){
+                                    $nvr_output_content=nvr_string_limit_char($content_post->post_content, 500);
+                                }
+//					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.'</div>';
+					$nvr_output	.= '<div class="nvr-prop-content">'.$nvr_output_content.'</div>';
+					$nvr_output  .='<div class="clearfix"></div>';
+				$nvr_output  .='</div>';
+				$nvr_output  .='<div class="learn-more center"><a href="'.esc_url( get_permalink($nvr_postid) ).'" title="'.esc_attr( get_the_title($nvr_postid) ).'" class="btn-green">Learn More</a></div>';
+                                
+                                
+                                
+//				// get the terms related to post
+//				$nvr_output_meta = '';
+//				if ( !empty( $nvr_type ) ) {
+////					$nvr_output_meta .= '<span class="nvr-prop-type"><i class="fa fa-building"></i>&nbsp; '. $nvr_type .'</span>';
+//					$nvr_output_meta .= '<span class="nvr-prop-type"><i class="fa fa-building"></i>&nbsp; '. $nvr_type .'</span>';
+//				}
 				if ( !empty( $nvr_size ) ) {
-					$nvr_output_meta .= '<span class="nvr-prop-size"><i class="fa fa-expand"></i>&nbsp; '.$nvr_size.' '. $nvr_unit .'</span>';
+//					$nvr_output_meta .= '<span class="nvr-prop-size"><i class="fa fa-expand"></i>&nbsp; '.$nvr_size.' '. $nvr_unit .'</span>';
 				}
-				if ( !empty( $nvr_bed ) ) {
-					$nvr_output_meta .= '<span class="nvr-prop-bed"><i class="fa fa-inbox"></i>&nbsp; '.$nvr_bed.' '.__('Bed', THE_LANG).'</span>';
-				}
-				if ( !empty( $nvr_bath ) ) {
-					$nvr_output_meta .= '<span class="nvr-prop-bath"><i class="fa fa-tint"></i>&nbsp; '.$nvr_bath.' '.__('Bath', THE_LANG).'</span>';
-				}
-				
-				if(!empty($nvr_output_meta)){
-					$nvr_output .= '<div class="nvr-prop-meta">';
-						$nvr_output .= $nvr_output_meta;
-					$nvr_output .= '<div>';
-				}
+//				if ( !empty( $nvr_bed ) ) {
+//					$nvr_output_meta .= '<span class="nvr-prop-bed"><i class="fa fa-inbox"></i>&nbsp; '.$nvr_bed.' '.__('Bed', THE_LANG).'</span>';
+//				}
+//				if ( !empty( $nvr_bath ) ) {
+//					$nvr_output_meta .= '<span class="nvr-prop-bath"><i class="fa fa-tint"></i>&nbsp; '.$nvr_bath.' '.__('Bath', THE_LANG).'</span>';
+//				}
+//				
+//				if(!empty($nvr_output_meta)){
+//					$nvr_output .= '<div class="nvr-prop-meta">';
+//						$nvr_output .= $nvr_output_meta;
+//					$nvr_output .= '<div>';
+//				}
 				$nvr_output  .='<div class="clearfix"></div>';
 			$nvr_output  .='</div>';
 		$nvr_output  .='</li>';
@@ -630,6 +658,7 @@ if(!function_exists('nvr_prop_get_box')){
 		return $nvr_output; 
 	}
 }
+
 if(!function_exists('nvr_show_price')){
 	function nvr_show_price($nvr_price=0, $nvr_cursymbol='', $nvr_curplace='' ){
 		$nvr_shortname = THE_SHORTNAME;
@@ -1871,7 +1900,7 @@ function nvr_send_booking_email($email_type,$receiver_email){
     }
     else if ($email_type == 'newbook'){
            $subject = __('New Booking Request on '.get_site_url(),THE_LANG); 
-           $message = __('You have received a new booking request on '.get_site_url().'!  Go to your account in “Bookings” page to see the request, issue the invoice or reject it!',THE_LANG);
+           $message = __('You have received a new booking request on '.get_site_url().'!  Go to your account in ï¿½Bookingsï¿½ page to see the request, issue the invoice or reject it!',THE_LANG);
     }
     else if ($email_type == 'newinvoice'){
            $subject = __('New Invoice on '.get_site_url(),THE_LANG); 

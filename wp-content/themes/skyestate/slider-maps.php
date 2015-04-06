@@ -34,6 +34,29 @@ $nvr_property_cities=   get_terms($nvr_propertycity);
 $nvr_propstatuses = nvr_get_option($nvr_shortname.'_property_status');
 ?>
 
+<!-- custom Filter start-->
+            <div class="property-filter">
+                <h6 class="filter-title alignleft">Filter by Status</h6> <span class="toggle">+</span>
+                <div class="clear"></div>
+                <div class="three columns filterbox">
+                    
+                    <div class="two columns">
+                    <label class="av-spaces"><span><i class="fa fa-map-marker"> </i>Available Spaces </span> <input type="checkbox"></label>
+                    <label class="p-sold"><span><i class="fa fa-map-marker"> </i>Properties Sold </span> <input type="checkbox"></label>
+                    <label class="c-projects"><span><i class="fa fa-map-marker"> </i>Completed Projects </span> <input type="checkbox"></label>
+                    <label class="in-dev"><span><i class="fa fa-map-marker"> </i>In Development </span> <input type="checkbox"></label>
+                    </div>
+
+                    <div class="two columns">
+                    <label class="a-asign"><span><i class="fa fa-map-marker"> </i>Active Assignments </span> <input type="checkbox"></label>
+                    <label class="cur-asign"><span><i class="fa fa-map-marker"> </i>Current Assignments </span> <input type="checkbox"></label>
+                    <label class="comp-asign"><span><i class="fa fa-map-marker"> </i>Completed Assignments </span> <input type="checkbox"></label>
+                    </div>               
+
+                </div>
+            </div>
+<!-- custom Filter start-->
+
 <div class="outermaps_container">
 
     <?php 
@@ -48,7 +71,9 @@ $nvr_propstatuses = nvr_get_option($nvr_shortname.'_property_status');
         <span class="loadertext"><?php _e('Loading Maps', THE_LANG);?></span>
         <img src="<?php echo esc_url( get_template_directory_uri().'/images/pf-loader.gif' ); ?>" alt="loader"/>
     </div>
-   
+
+            
+
    
    <?php if($nvr_filterMap==true){ ?>
    
@@ -92,6 +117,8 @@ $nvr_propstatuses = nvr_get_option($nvr_shortname.'_property_status');
    $filter_price_min = isset($_REQUEST['adv_filter_price_min'])? $_REQUEST['adv_filter_price_min'] : $nvr_minprice;
    $filter_price_max = isset($_REQUEST['adv_filter_price_max'])? $_REQUEST['adv_filter_price_max'] : $nvr_maxprice;
    ?>
+        
+
         <div class="advanced-search">
         <a class="button" href="#" id="toggle-advanced-search"><span id="showsearch"><i class="fa fa-chevron-up"></i> <?php _e('Show Advanced Search', THE_LANG); ?></span><span id="closesearch"><i class="fa fa-chevron-down"></i> <?php _e('Close Advanced Search', THE_LANG); ?></span></a>
         <a class="maps-nav-next fa fa-chevron-right" id="maps-nav-next" href="#"></a>
@@ -218,7 +245,12 @@ $nvr_propstatuses = nvr_get_option($nvr_shortname.'_property_status');
                 <input name="adv_filter_nonce" id="adv_filter_nonce" type="hidden" value="<?php echo esc_attr( $nvr_nonce ); ?>" />
                 <input name="page_id" id="nvr_page_id" type="hidden" value="<?php echo esc_attr( $nvr_page_id ); ?>" />
             </div>
+
+
         </form>
+
+            
+
         </div>
    </div>
    <!-- END Advanced Search Container -->

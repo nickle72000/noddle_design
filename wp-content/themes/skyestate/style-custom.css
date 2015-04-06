@@ -1,6 +1,6 @@
 /* For Novaro's Theme Customization Style */
 /* body */
-body{font-family: 'Karla', sans-serif;}
+body{font-family: 'Karla', sans-serif!important; background: #fff!important;}
 /* Top Nav */
 .topnav a{color:#07bec6; font-weight: normal; font-family:lato; text-transform: uppercase;  }
 .topnav li a:hover, .topnav li:hover a, .topnav .current_page_item> a, .topnav .current_page_item > a:hover, .topnav .current_page_parent > a, .topnav .current_page_parent > a:hover, .topnav .current-menu-parent > a, .topnav .current-menu-parent > a:hover, .topnav .current-menu-item > a, .topnav .current-menu-item > a:hover{color:#227fb1}
@@ -34,15 +34,247 @@ body{font-family: 'Karla', sans-serif;}
 
 /*titles*/
 .whoweare{background:url(images/who-we-are-icon.png) no-repeat 10px center #efedf4 ; padding-left:85px!important; width: auto;}
-.blocktitle{font-family: 'lato', sans-serif; font-size: 48px; font-weight: 100;   padding:15px 25px 15px 55px; text-transform:uppercase;   }
+/*.blocktitle{font-family: 'lato', sans-serif; font-size: 48px; font-weight: 100;   padding:15px 25px 15px 55px; text-transform:uppercase;   }*/
+p.blocktitle span{font-family: 'lato', sans-serif; font-size: 48px; font-weight: 100;   padding:15px 25px 15px 55px; text-transform:uppercase;   }
 .fproperties{background:url(images/fproperties-icon.png) no-repeat #07b5bd 10px center; color:#fff; width: auto; }
+.news{background:url(images/news-icon.png) no-repeat 10px center #efedf4; padding-left:85px!important; }
+ p.blocktitle  {margin-top:70px;}
+
 
 /*buttons*/
-a.btn-green{font-size:18px; font-family: 'lato', sans-serif; padding:10px 25px; text-transform: uppercase; color:#fff; background: #94c55e; text-decoration: none }
+a.btn-green{font-size:18px; font-family: 'lato', sans-serif; padding:10px 25px; text-transform: uppercase; color:#fff; background: #94c55e; text-decoration: none; }
 
 /*propertis hidden items */
 .nvr-prop-box span.meta-purpose, .nvr-prop-box span.meta-price {display:none;}
+.nvr-prop-box {max-height: 750px; height:700px;}
+
+ .nvr-prop-box .learn-more {position: absolute; bottom: 20px; text-align: center; width:380px;}
+.nvr-prop-box .learn-more a.btn-green{width:150px; margin:0 auto;}
+.nvr-prop-type i{font-size:36px; color:#07bec6}
+.nvr-prop-address{color:#787878;}
+.nvr-prop-address .fa{color:#07bec6; font-size:36px; margin-right:8px; }
+.nvr-prop-address .fa-map-marker{color:#787878; }
+
+.stripecontainer > .stripewrapper > div.wpb_row:last-child {
+    margin-bottom: 0;
+    padding: 45px 0;
+}
 
 /* alignments */
 .center{text-align: center}
-.prop-item-container{}
+.clear{clear:both; line-height:0; padding:0;}
+
+/*footer sidebar*/
+
+#footer{border-top:1px solid #07bec6 ;}
+#menu-footer-links li{display:inline-block; padding: 5px 10px;}
+#footersidebar{padding: 55px 0 0 0;}
+
+#footersidebar #menu-footer-links li{padding:5px 10px;}  
+#menu-footer-links li a{color:#07bec6; }
+#footersidebar li a, #footersidebar li a:visited {
+    color: #07bec6;
+}
+#footcol3, #footcol4{display:none;}
+#footcol2{width:75%;}
+
+/*recent posts */
+.stripecontainer{margin-bottom:0;}
+.vc_gitem-zone-a{display: none!important}
+.vc_gitem-col{background: #fff}
+.vc_custom_heading h4{color: #07bec6; font-family: 'lato', sans-serif; text-transform: uppercase; font-size:22px; font-weight:normal;}
+a.vc_btn_juicy_pink {font-size:18px; font-family: 'lato', sans-serif; padding:10px 25px; text-transform: uppercase; color:#fff; background: #94c55e!important; text-decoration: none; }
+
+.property-filter{position:absolute; z-index: 1; background: url(images/white.png); border:1px solid #787878; bottom: 40px; left:50px; padding:10px; width:520px;}
+.property-filter label{display:block;}
+.property-filter label span{width:195px; display: inline-block;}
+.property-filter label span .fa{margin-right:8px;}
+.property-filter h6{margin-bottom:0;}
+.property-filter .toggle{display: none}
+
+label.av-spaces{color:#00bec8}
+label.p-sold{color:#257cb1}
+label.c-projects{color:#1b5a81}
+label.in-dev{color:#94c65f}
+label.a-asign{color:#b580ba}
+label.cur-asign{color:#814f6a}
+label.comp-asign{color:#4b356c}
+
+.filterbox{display:block;}
+
+
+
+/* About Design */
+#outertop {
+	background: none;
+}
+#afterheader .pagetitle {
+	font-size: 36px;
+	line-height: 44px;
+	color:#777;
+	font-weight: normal;
+}
+#outerafterheader {
+	padding: 10px 0px;
+}
+.more-link {
+  background: #94c55e;
+  border: none;
+  color: #fff;
+}
+.more-link:hover {
+  background: #237cb2;
+  color: #fff;
+}
+.flt_right {
+	float: right;
+}
+.testimonial_main {
+	background: #fff;
+	-webkit-box-shadow: 6px 5px 0px -2px rgba(5,124,129,1);
+	-moz-box-shadow: 6px 5px 0px -2px rgba(5,124,129,1);
+	box-shadow: 6px 5px 0px -2px rgba(5,124,129,1);
+	margin-bottom:100px !important;
+}
+.testimonial_main .nvr-trotating .testiimg img {
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+#subbody .testimonial_main .flex-direction-nav a.flex-next {
+	right: 20px;
+	margin-right: 0;
+}
+#subbody .testimonial_main .nvr-trotating .flex-direction-nav a.flex-prev {
+	left: 20px;
+	margin-left: 0;
+}
+#subbody .testimonial_main .flex-direction-nav a {
+	background: transparent;
+	color:#07bec6;
+}
+#subbody .testimonial_main .flex-direction-nav a {
+	height: auto;
+	width: auto;
+	font-size: 50px;
+	line-height: 50px;
+}
+.testimon_head {
+	text-transform: uppercase;
+	font-size: 40px;
+	font-weight: normal;
+	margin-bottom: 50px;
+}
+.testimon_head span {
+	background:#07b5bd;
+	padding: 10px 40px 10px 0;
+  	display: inline-block;
+}
+.testimon_head span.test_icon {
+	background:url('images/about_sprite.png') no-repeat;
+	padding: 0;
+  	width: 79px;
+  	height: 50px;
+  	background-position: 0 -8px;
+  	vertical-align: middle;
+}
+#subbody .testimonial_main .flex-direction-nav a.flex-prev:before, #subbody .testimonial_main .flex-direction-nav a.flex-next:before {
+	content: "";
+}
+#subbody .testimonial_main .flex-direction-nav a.flex-prev {
+	background:url('images/about_sprite.png') no-repeat;
+	background-position: -100px -13px;
+	width: 32px;
+	height: 69px;
+}
+
+#subbody .testimonial_main .flex-direction-nav a.flex-next {
+	background:url('images/about_sprite.png') no-repeat;
+	background-position: -155px -13px;
+	width: 32px;
+	height: 69px;
+}
+body .wpcf7-form input[type="submit"] {
+	background: #227fb1 !important;
+	border:none !important;
+}
+body .wpcf7 input[type="text"], body .wpcf7 input[type="email"] {
+	width: 50%;
+}
+
+.login_box {
+	text-align: center;
+	background: #efedf4;
+	padding: 20px 5px;
+}
+.login_box h3 {
+	text-transform: uppercase;
+	font-weight:normal;
+	margin-bottom: 5px;
+	font-size: 26px;
+}
+.login_box p{ 
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+.button, .more-link, .button:visited, #maincontent input[type="submit"], #maincontent input[type="reset"], button {
+	font-size: 18px;
+	font-weight: normal;
+	min-width: 163px;
+}
+#afterheader .pagedesc {
+	margin-bottom: 20px;
+	margin-top: 20px;
+	font-size: 20px;
+	color: inherit;
+}
+.your-message textarea {
+	height: 150px;
+	width: 80%;
+}
+
+
+@media only screen and (max-width: 767px) {
+	#maincontent {
+		max-width: inherit;
+	}
+	body .wpcf7 input[type="text"], body .wpcf7 input[type="email"] {
+		width: 70%;
+	}
+	.your-message textarea {
+		width: 100%;	
+	}
+	.flt_right {
+		float: none;
+	}
+}
+
+@media only screen and (min-width: 320px) and (max-width:767px) {
+	.property-filter .toggle{display: block}
+	.property-filter {width:278px; left:0; margin:0 15px; padding:5px;}
+	.property-filter .columns{padding:0; }
+	.property-filter {bottom:inherit; top:80px;}
+	.property-filter h6.filter-title {width:95%; margin:0;}
+	.property-filter .filterbox{display:none; margin-top:5px;}
+	.property-filter .toggle{cursor: pointer;}
+
+	.callAction-full{padding:15px 0 0 0 !important; }
+	#gMapsContainer{margin: 35px 15px 15px 15px;}
+	.outermaps_container{background: #fff;}
+	p.blocktitle span{font-size:16px; background-size:30px; padding-left:50px!important; }
+
+	p.blocktitle < .whoweare{background-color: #efedf4 }
+	li.prop-item-container[style]{width:290px!important; float:none!important;}
+
+	}
+
+	@media only screen and (min-width: 360px){
+
+		li.prop-item-container[style]{width:330px!important;}
+	3
+	@media only screen and (min-width: 480px){
+
+		li.prop-item-container[style]{width:460px!important;}
+		.propcarousel {width:400px;}
+	}
+

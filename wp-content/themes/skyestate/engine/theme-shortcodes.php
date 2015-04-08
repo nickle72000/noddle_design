@@ -412,25 +412,36 @@ if(!function_exists('nvr_propertycarousel')){
     			$i=1;
     			$nvr_argquery = array(
     				'post_type' => 'propertys',
-    				'showposts' => $showposts
+    				'showposts' => $showposts,
+					'nvr_featured'=>false
     			);
     			if($cat){
-    				$nvr_argquery['tax_query'] = array(
+    				/*$nvr_argquery['tax_query'] = array(
     					array(
     						'taxonomy' => $propterm,
     						'field' => 'slug',
     						'terms' => $cat
     					)
-    				);
+    				);*/
     			}
-    			query_posts($nvr_argquery);
+				$nvr_argquery['meta_query'] = array(
+    					array(
+    						'key' => 'nvr_featured',
+    						'value' => 'true'
+    						
+    					)
+    				);
+				$customPosts = new WP_Query($nvr_argquery);
+//echo "Last SQL-Query: {$customPosts->request}";
+				
+    			//query_posts($customPosts);
     			global $post;
     			
     			$nvr_output  .='<div class="flexslider-carousel row">';
     				$nvr_output  .='<ul class="slides">';
     				
     				$nvr_havepost = false;
-    				while (have_posts()) : the_post();
+    				while ($customPosts->have_posts()) : $customPosts->the_post();
     					$nvr_havepost = true;
     					$imgsize	= 'property-image';
     					$pimgsize 	='default';

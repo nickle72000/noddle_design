@@ -20,6 +20,7 @@ $nvr_unit = nvr_get_option( $nvr_shortname . '_measurement_unit');
 	if ( have_posts() ) while ( have_posts() ) : the_post(); 
 	
 		$nvr_custom = nvr_get_customdata( get_the_ID() );
+		//echo "<pre>";print_r($nvr_custom);
 		$nvr_status = (isset($nvr_custom[$nvr_initial."_status"][0]))? $nvr_custom[$nvr_initial."_status"][0] : '';
 		$nvr_price = (isset($nvr_custom[$nvr_initial."_price"][0]))? $nvr_custom[$nvr_initial."_price"][0] : '';
 		$nvr_plabel = (isset($nvr_custom[$nvr_initial."_price_label"][0]))? $nvr_custom[$nvr_initial."_price_label"][0] : '';
@@ -29,7 +30,7 @@ $nvr_unit = nvr_get_option( $nvr_shortname . '_measurement_unit');
 		$nvr_lotsize = (isset($nvr_custom[$nvr_initial."_lot_size"][0]))? $nvr_custom[$nvr_initial."_lot_size"][0] : '';
 		$nvr_amenities = (isset($nvr_custom[$nvr_initial.'_amenities'][0]))? $nvr_custom[$nvr_initial.'_amenities'][0] : '';
 		$nvr_agent = (isset($nvr_custom[$nvr_initial.'_agent'][0]))? $nvr_custom[$nvr_initial.'_agent'][0] : '';
-		
+		 $nvr_siteplan=(isset($nvr_custom['site_plan'][0]))? $nvr_custom['site_plan'][0] : '';
 		$nvr_address = (isset($nvr_custom[$nvr_initial."_address"][0]))? $nvr_custom[$nvr_initial."_address"][0] : '';
 		$nvr_state = (isset($nvr_custom[$nvr_initial."_state"][0]))? $nvr_custom[$nvr_initial."_state"][0] : '';
 		$nvr_country = (isset($nvr_custom[$nvr_initial."_country"][0]))? $nvr_custom[$nvr_initial."_country"][0] : '';
@@ -76,8 +77,10 @@ $nvr_unit = nvr_get_option( $nvr_shortname . '_measurement_unit');
 				'post_type' => 'peoplepost',
 				'name' => $nvr_agent
 			));
+			
 			if($nvr_get_agent->have_posts()){
 				while($nvr_get_agent->have_posts()){
+				
 					$nvr_get_agent->next_post();
 					$nvr_agentid = $nvr_get_agent->post->ID;
 					$nvr_agent_data['title'] = $nvr_get_agent->post->post_title;
@@ -116,24 +119,157 @@ $nvr_unit = nvr_get_option( $nvr_shortname . '_measurement_unit');
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<div class="entry-content">
             	<div class="prop-single-head">
-                	<div class="prop-price-container">
+                	<?php /*<div class="prop-price-container">
                     	<div class="prop-single-purpose"><?php echo '<i class="fa fa-tag"></i> '.$nvr_purpose; ?></div>
                         <div class="prop-single-price"><?php echo nvr_show_price($nvr_price, $nvr_cursymbol, $nvr_curplace).' '.$nvr_plabel;?></div>
-                    </div>
+                    </div>*/?>
                     <div class="prop-single-summary">
                     	<h1 class="prop-title"><?php the_title(); ?></h1>
-                        <div class="prop-category"><?php echo implode(", ",$nvr_typearr); ?></div>
-                        <div class="prop-address"><?php echo '<i class="fa-map-marker fa"></i> '.$nvr_complete_address; ?>
-                       </div>
+                        <div class="prop-category"><?php //echo implode(", ",$nvr_typearr); ?></div>
+                        <div class="prop-address"><?php //'<i class="fa-map-marker fa"></i> ' 
+						echo $nvr_complete_address; ?></div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
             	<div class="prop-single-desc">
-                	<h3 class="prop-single-title"><?php _e('Property Description', THE_LANG); ?></h3>
+                <?php /*	<h3 class="prop-single-title"><?php _e('Property Description', THE_LANG); ?></h3>*/?>
 					<div class="prop-single-content"><?php the_content(); ?></div>
                     <?php wp_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', THE_LANG ), 'after' => '</div>' ) ); ?>
                 </div>
-                <div class="prop-single-detail">
+				<div class="site_plan">
+				<p>SITE PLAN</p>
+				<?php echo wp_get_attachment_image($nvr_siteplan,'full');?>
+				</div>
+				<div class="">
+				<?php //$props = CFS()->get('Tenants');
+				//echo "<pre>";print_r(the_field());
+				$field_name = "tenant";
+
+if( get_field($field_name) ):
+				
+				?>
+				    <div class="tenants">
+					<h3>Tenants</h3>
+					<table>
+					<tr style="background-color:white;"><td >NAME</td><td>SQFT</td></tr>
+					<?php while( has_sub_field($field_name) ):?>
+					
+					<tr>
+					<td><?php echo the_sub_field('name');?></td>
+					<td><?php echo the_sub_field('value');?></td>
+					</tr>
+					
+					<?php endwhile; ?>
+					</table>
+					</div>
+					<?php endif; 
+				$field_name = "other_information";
+                if( get_field($field_name) ):
+				
+				?>
+					<div class="oi">
+					<h3>OTHER INFORMATION</h3>
+					<table>
+					<?php while( has_sub_field($field_name) ):?>
+					
+					<tr>
+					<td><?php echo the_sub_field('name');?></td>
+					<td><?php echo the_sub_field('value');?></td>
+					</tr>
+					
+					<?php endwhile; ?>
+					</table>
+					</div>
+						<?php endif; ?>
+						<div class="clearfix"></div>
+						<?php
+				$field_name = "primary_market_radius";
+                if( get_field($field_name) ):
+				//print_r(get_field($field_name));
+				?>
+				
+			
+				    <div class="tenants">
+					<h3>primary market radius</h3>
+					<table>
+					<tr style="background-color:white;"><td >Miles</td><td>Population</td><td>Households</td></tr>
+					<?php while( has_sub_field($field_name) ):?>
+					
+					<tr>
+					
+					<td><?php echo the_sub_field('miles');?></td>
+					<td><?php echo the_sub_field('population');?></td>
+					<td><?php echo the_sub_field('households');?></td>
+					</tr>
+					
+				<?php endwhile; ?>
+					</table>
+					</div>
+					<?php endif; 
+				$field_name = "income_per_household";
+                if( get_field($field_name) ):
+				//print_r(get_field($field_name));
+				?>
+					<div class="tenants">
+					<h3>Income per household</h3>
+					<table>
+					<tr style="background-color:white;"><td >Miles</td><td>Medium</td><td>Average</td></tr>
+					<?php while( has_sub_field($field_name) ):?>
+					
+					<tr>
+					<td><?php echo the_sub_field('miles');?></td>
+					<td><?php echo the_sub_field('medium');?></td>
+					<td><?php echo the_sub_field('average');?></td>
+					</tr>
+					
+				<?php endwhile; ?>
+					</table>
+					</div>
+						<?php endif; ?>
+						<div class="clearfix"></div>
+						<?php
+				$field_name = "median_age";
+                if( get_field($field_name) ):
+				
+				?>
+				    <div class="tenants">
+					<h3>Median Age</h3>
+					<table>
+					<tr style="background-color:white;"><td >Miles</td><td>Age</td></tr>
+					<?php while( has_sub_field($field_name) ):?>
+					
+					<tr>
+					<td><?php echo the_sub_field('miles');?></td>
+					<td><?php echo the_sub_field('age');?></td>
+					
+					</tr>
+					
+					<?php endwhile; ?>
+					</table>
+					</div>
+					<?php endif; 
+				$field_name = "traffic_count";
+                if( get_field($field_name) ):
+				
+				?>
+					<div class="tenants">
+					<h3>Traffic Count</h3>
+					<table>
+					<tr style="background-color:white;"><td >Value</td><td>Location</td><td>EADT</td><td>Date counted</td></tr>
+					<?php while( has_sub_field($field_name) ):?>
+					
+					<tr>
+					<td><?php echo the_sub_field('value');?></td>
+					<td><?php echo the_sub_field('location');?></td>
+					<td><?php echo the_sub_field('eadt');?></td>
+					<td><?php echo the_sub_field('date_counted');?></td>
+					</tr>
+					
+					<?php endwhile; ?>
+					</table>
+					</div>
+				</div>
+                <?php endif;/*<div class="prop-single-detail">
                 	<h3 class="prop-single-title"><?php _e('Property Details', THE_LANG); ?></h3>
                     <div class="row">
                     	<div class="three columns"><?php _e('Price', THE_LANG); ?>:<br /> <span class="detailvalue"><?php echo nvr_show_price($nvr_price).' '.$nvr_plabel; ?></span></div>
@@ -199,15 +335,18 @@ $nvr_unit = nvr_get_option( $nvr_shortname . '_measurement_unit');
                         
                     </div>
                 <?php
-				}/* end if $nvr_amenities!='' */
-				?>
-                
-                <div class="prop-single-maps">
+				}/* end if $nvr_amenities!=''
+
+  <div class="prop-single-maps">
                 	<h3 class="prop-single-title"><?php _e('Location of this Property', THE_LANG); ?></h3>
                     <div class="nvr_googlemap">
 						<div id="gMapsContainer"></div>
 					</div>
                 </div>
+				*/
+				?>
+                
+              
                 
                 <?php if($nvr_has_agent){ ?>
                 <div class="prop-single-agent">
@@ -281,7 +420,7 @@ $nvr_unit = nvr_get_option( $nvr_shortname . '_measurement_unit');
                 <?php } ?>
                 
                 <?php
-		
+		/*
 				$nvr_idnum = 0;
 				
 				$nvr_pagelayout = nvr_get_sidebar_position(get_the_ID());
@@ -355,7 +494,7 @@ $nvr_unit = nvr_get_option( $nvr_shortname . '_measurement_unit');
 		</div><!-- #post -->
     
     <?php 
-		comments_template( '', true ); 
+		//comments_template( '', true ); */
 	endwhile; 
 	?>
 	<div class="clearfix"></div><!-- clear float --> 

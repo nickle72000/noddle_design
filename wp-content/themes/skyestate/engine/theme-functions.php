@@ -584,7 +584,7 @@ if(!function_exists('nvr_prop_get_box')){
                 
 		$nvr_output  .='<li class="prop-item-container '.esc_attr( $nvr_class ).'">';
 			$nvr_output  .='<div class="nvr-prop-box">';
-				$nvr_output  .='<div class="nvr-prop-img">';
+				$nvr_output  .='<div class="nvr-prop-img" >';
 
 //					if($nvr_upper_meta!=''){
 //						$nvr_output .= '<div class="nvr-upper-meta">'.$nvr_upper_meta.'</div>';
@@ -662,8 +662,9 @@ if(!function_exists('nvr_prop_get_box')){
 if(!function_exists('nvr_show_price')){
 	function nvr_show_price($nvr_price=0, $nvr_cursymbol='', $nvr_curplace='' ){
 		$nvr_shortname = THE_SHORTNAME;
-		
+		if(is_float($nvr_price)){
 		$nvr_numformat = number_format($nvr_price,0,'.',',');
+}
 		if($nvr_cursymbol==''){
 			$nvr_cursymbol = nvr_get_option( $nvr_shortname . '_currency_symbol');
 		}
@@ -689,7 +690,8 @@ if(!function_exists('nvr_property_mapquery')){
 		$nvr_paged = $paged;
 		
 		$nvr_query_args = array(
-			'post_type'         =>  'propertys'
+			'post_type'         =>  'propertys',
+			'post_status'   => 'publish' 
 		);
 		
 		if(isset($nvr_paged)){
@@ -777,12 +779,20 @@ if(!function_exists('nvr_property_mapquery')){
 			$filter_status = isset($_REQUEST['adv_filter_status'])? $_REQUEST['adv_filter_status'] : '';
 			if($filter_status!=''){
 				
-				$nvr_statusval = sanitize_text_field($filter_status);
-				
+				$nvr_statusval = sanitize_text_field($_REQUEST['adv_filter_status']);
+			
 				$nvr_metaquery[] = array(
 					'key'		=> $nvr_initial.'_status',
-					'value'		=> $nvr_statusval
+					'value'		=> $_REQUEST['adv_filter_status'],
+					'compare' => 'IN',
 				);
+			}else{
+			$nvr_metaquery[] = array(
+					'key'		=> $nvr_initial.'_status',
+					'value'		=> ' ',
+					'compare' => '=',
+				);
+			
 			}
 			
 			$filter_numroom = isset($_REQUEST['adv_filter_numroom'])? $_REQUEST['adv_filter_numroom'] : '';
@@ -1215,7 +1225,9 @@ function nvr_changepinmap(){
 	
 	$nvr_cache = false;
 	$nvr_markers = $nvr_senddata = array();
-	
+	//print_r($nvr_query_args);exit;
+	//$customPosts = new WP_Query($nvr_query_args);
+//echo "Last SQL-Query: {$customPosts->request}";exit;
 	if($nvr_cache=='yes'){
 		if(!get_transient('cache_property_list')) { 
 
@@ -1229,6 +1241,7 @@ function nvr_changepinmap(){
 		}
 		wp_reset_query(); 
 	}
+	
 	else{  
 
 		$property_lists = new WP_Query($nvr_query_args);

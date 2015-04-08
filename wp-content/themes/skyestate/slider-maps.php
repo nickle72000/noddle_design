@@ -40,18 +40,28 @@ $nvr_propstatuses = nvr_get_option($nvr_shortname.'_property_status');
                 <div class="clear"></div>
                 <div class="three columns filterbox">
                     
-                    <div class="two columns">
-                    <label class="av-spaces"><span><i class="fa fa-map-marker"> </i>Available Spaces </span> <input type="checkbox"></label>
-                    <label class="p-sold"><span><i class="fa fa-map-marker"> </i>Properties Sold </span> <input type="checkbox"></label>
-                    <label class="c-projects"><span><i class="fa fa-map-marker"> </i>Completed Projects </span> <input type="checkbox"></label>
-                    <label class="in-dev"><span><i class="fa fa-map-marker"> </i>In Development </span> <input type="checkbox"></label>
-                    </div>
-
-                    <div class="two columns">
-                    <label class="a-asign"><span><i class="fa fa-map-marker"> </i>Active Assignments </span> <input type="checkbox"></label>
-                    <label class="cur-asign"><span><i class="fa fa-map-marker"> </i>Current Assignments </span> <input type="checkbox"></label>
-                    <label class="comp-asign"><span><i class="fa fa-map-marker"> </i>Completed Assignments </span> <input type="checkbox"></label>
-                    </div>               
+                      <div class="two columns">
+					
+								<?php   
+								 $nvr_propstatuses = nvr_get_option($nvr_shortname.'_property_status'); 
+							$as_cor=array('av-spaces','p-sold','c-projects','in-dev','a-asign','cur-asign','comp-asign');
+								$nvr_optpropstatus = array();
+                            for($i=0;$i<count($nvr_propstatuses);$i++){
+							if($i%4=="0" && $i!=0){
+							echo '</div><div class="two columns">';
+							
+							}
+                                $nvr_propstatus = $nvr_propstatuses[$i];
+                                $nvr_optpropstatus[$nvr_propstatus] = $nvr_propstatus;
+                                if($nvr_propstatus!=""){
+                                if($nvr_propstatus==$filter_status){
+                                    $optselected = 'selected="selected"';
+                                }else{
+                                    $optselected = '';
+                                }
+                                echo ' <label class="'.$as_cor[$i].'"><span><i class="fa fa-map-marker"> </i>'.$nvr_propstatus.'</span> <input type="checkbox"  name="search_map[]" class="search_check" value="'.$nvr_propstatus.'"></label>';
+                            }}?>
+							</div>             
 
                 </div>
             </div>

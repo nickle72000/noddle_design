@@ -177,16 +177,19 @@ function setPins(map, locations) {
 			var city 	= 	decodeURIComponent( this.city.replace(/-/g,' ') );
 			var state 	= 	decodeURIComponent( this.state.replace(/-/g,' ') );
 			var country = 	decodeURIComponent( this.country.replace(/-/g,' ') );
-			var completeaddress = address + ' ' + city + ' ' + state + ' ' + country;
+			var completeaddress = address + ' <br/>' + city + ' ' + state + ' ' + country;
 			var in_type =   gmapsextended_var.in_text;
 			
 			var uppermeta = '';
+			if(type!==''){
+				var type_cat = '<span class="nvr-prop-type" style="float:right;"><i class="fa fa-building"></i>&nbsp;'+ type +'</span>';
+			}
 			if(type2!==''){
-				uppermeta += '<span class="meta-purpose">'+ type2 +'</span>';
+				//uppermeta += '<span class="meta-purpose">'+ type2 +'</span>';
 			}
 			
 			if(price!==''){
-				uppermeta += '<span class="meta-price">'+ price +'</span>';
+			//	uppermeta += '<span class="meta-price">'+ price +'</span>';
 			}
 			
 			if(uppermeta!=''){
@@ -201,9 +204,9 @@ function setPins(map, locations) {
 
 			// prevent ghost clicks on ipad
 			if(event==='touchstart'){     //alert('touch');
-				infoBox.setContent('<div class="info_details '+extra_adv_class+'" ><span class="fa fa-times" id="infocloser" onClick=\'javascript:infoBox.close();\' ></span><div class="nvr-prop-img">'+ uppermeta +'<a href="'+this.link+'">'+info_image+'</a></div><div class="nvr-prop-text"><h2 class="nvr-prop-title"><a href="'+this.link+'">'+title+'</a></h2><div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '+ completeaddress +'</div><div class="clearfix"></div></div>' );
+				infoBox.setContent('<div class="info_details '+extra_adv_class+'" ><span class="fa fa-times" id="infocloser" onClick=\'javascript:infoBox.close();\' ></span><div class="nvr-prop-img">'+ uppermeta +'<a href="'+this.link+'">'+info_image+'</a></div><div class="nvr-prop-text"><h2 class="nvr-prop-title"><a href="'+this.link+'">'+title+'</a></h2><div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '+ completeaddress +'</div> '+type_cat+'<div class="clearfix"></div><div style="padding:16px;"> <button type="button">Learn more</button></div></div>' );
 			}else{
-				infoBox.setContent('<div class="info_details '+extra_adv_class+'" ><span class="fa fa-times" id="infocloser" onClick=\'javascript:infoBox.close();\' ></span><div class="nvr-prop-img">'+ uppermeta +'<a href="'+this.link+'">'+info_image+'</a></div><div class="nvr-prop-text"><h2 class="nvr-prop-title"><a href="'+this.link+'">'+title+'</a></h2><div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '+ completeaddress +'</div><div class="clearfix"></div></div>' );
+				infoBox.setContent('<div class="info_details '+extra_adv_class+'" ><span class="fa fa-times" id="infocloser" onClick=\'javascript:infoBox.close();\' ></span><div class="nvr-prop-img">'+ uppermeta +'<a href="'+this.link+'">'+info_image+'</a></div><div class="nvr-prop-text"><h2 class="nvr-prop-title"><a href="'+this.link+'">'+title+'</a></h2><div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '+ completeaddress +' '+type_cat+'</div><div class="clearfix"></div><div><span style="padding:16px;"><button type="button">Learn more</button></div></div>' );
 				/*infoBox.setContent('<div class="info_details '+extra_adv_class+'" ><span id="infocloser" onClick=\'javascript:infoBox.close();\' ></span><a href="'+this.link+'">'+info_image+'</a><a href="'+this.link+'" id="infobox_title">'+title+'</a><div class="prop_details"><span id="info_inside">'+type+" "+in_type+" "+type2+this.price+'</span></div>' );*/
    
 			}
@@ -272,22 +275,31 @@ function filtertoggle(){
 
 function ajaxchangepinmap(){
 	"use strict";
-	
-	var btnpropfilter = jQuery('#adv_quick_search');
+	jQuery("input[name='search_map[]']").each(function(){
+	 jQuery(this).attr("disabled", false);
+	  jQuery(this).prop('checked', true);});
+	var btnpropfilter = jQuery('#adv_quick_search,input[type="checkbox"]');
 	btnpropfilter.click(function(evt){
-		
+		infoBox.close()
 		evt.preventDefault();
 		deleteMarkers();
 		
 		if(markercluster){
 			markercluster.clearMarkers();
 		}
-		
+		var text= new Array();
+jQuery("input[name='search_map[]']").each(function(){
+ jQuery(this).attr("disabled", true);
+if(jQuery(this).is(':checked')){
+
+    text.push(jQuery(this).val());
+	}
+});  
 		var filter_city			= jQuery('#adv_filter_city').val();
 		var filter_keywords		= jQuery('#adv_filter_keywords').val();
         var filter_purpose		= jQuery('#adv_filter_purpose').val();
         var filter_type			= jQuery('#adv_filter_type').val();
-        var filter_status		= jQuery('#adv_filter_status').val();
+        var filter_status		= text;
         var filter_numroom		= jQuery('#adv_filter_numroom').val();
         var filter_numbath		= jQuery('#adv_filter_numbath').val();
 		var filter_pricemin		= jQuery('#adv_filter_price_min').val();
@@ -347,9 +359,19 @@ function ajaxchangepinmap(){
 		});
 		
 		jqxhr.done(function(data, textStatus){
+				jQuery("input[name='search_map[]']").each(function(){
+		 jQuery(this).attr("disabled", false);
+if(jQuery.inArray(jQuery(this).val(), text )>=0){
+  
+  jQuery(this).prop('checked', true);
+	}else{
+	jQuery(this).prop('checked', false);
+	}
+}); 
 			propcontainer.empty();
 			markers = data.markers;
-			if(typeof(markers.length)=='undefined'){alert('Properties Not Found');}
+			if(typeof(markers.length)=='undefined'){//alert('Properties Not Found');
+			}
 			setPins( map, markers );
 			
 			map_cluster();

@@ -270,11 +270,51 @@ body .wpcf7 input[type="text"], body .wpcf7 input[type="email"] {
 
 	@media only screen and (min-width: 360px){
 
-		li.prop-item-container[style]{width:330px!important;}
+		li.prop-item-container[style]{width:368px!important;}
 	3
 	@media only screen and (min-width: 480px){
 
 		li.prop-item-container[style]{width:460px!important;}
 		.propcarousel {width:400px;}
 	}
+.flex-direction-nav{
+display:none;
+}
+.site_plan{
+text-align:center;
+}
 
+.site_plan p{
+ background-color: #25bcba;
+    color: white;
+    padding: 15px;
+    width: 14%;
+}
+.tenants{
+float:left;
+width:50%;
+}
+.tenants h3{
+text-transform: uppercase;
+}
+.tenants table{
+width:80%;
+}
+.tenants table tr:nth-child(2n + 1){
+ background-color: #E2E2E2;
+}
+.oi h3{
+text-transform: uppercase;
+}
+.oi{
+float:left;
+width:50%;
+
+}
+.oi table{
+width:80%;
+}
+
+.oi table tr:nth-child(even){
+ background-color: #E2E2E2;
+}

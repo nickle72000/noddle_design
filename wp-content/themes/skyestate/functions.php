@@ -1,7 +1,7 @@
 <?php
 
 /********** NOVARO DEFINITION *************/
-define('THE_THEMENAME', 'skyestate');
+define('THE_THEMENAME', 'Noddle');
 define('THE_SHORTNAME', 'novaro');
 define('THE_INITIAL', 'nvr');
 define('THE_LANG', 'novaro');

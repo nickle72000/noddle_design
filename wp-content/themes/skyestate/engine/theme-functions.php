@@ -853,12 +853,12 @@ if(!function_exists('nvr_property_mapquery')){
 			}
 			
 			if($nvr_pricemin>=0 && $nvr_pricemax>=0){
-				$nvr_metaquery[] = array(
+				/*$nvr_metaquery[] = array(
 					'key'		=> $nvr_initial.'_price',
 					'value'		=> array($nvr_pricemin, $nvr_pricemax),
 					'type'		=> 'numeric',
 					'compare'	=> 'BETWEEN'
-				);
+				);*/
 			}
 			
 			if(count($nvr_taxquery)){
@@ -1225,7 +1225,7 @@ function nvr_changepinmap(){
 	
 	$nvr_cache = false;
 	$nvr_markers = $nvr_senddata = array();
-	//print_r($nvr_query_args);exit;
+	//print_r($nvr_query_args);
 	//$customPosts = new WP_Query($nvr_query_args);
 //echo "Last SQL-Query: {$customPosts->request}";exit;
 	if($nvr_cache=='yes'){

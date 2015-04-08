@@ -412,8 +412,9 @@ if(!function_exists('nvr_propertycarousel')){
     			$i=1;
     			$nvr_argquery = array(
     				'post_type' => 'propertys',
-    				'showposts' => $showposts,
-					'nvr_featured'=>false
+    			
+					 'orderby' => 'rand',
+						'posts_per_page'=>'3'
     			);
     			if($cat){
     				/*$nvr_argquery['tax_query'] = array(

@@ -26,7 +26,34 @@ function nvr_post_type_propertys() {
 									 'page-attributes')
 					) 
 				);
-	
+	register_post_type( 'projects',
+                array( 
+				'label' => __('projects', THE_LANG ), 
+				'labels' => array(
+					'add_new_item' => 'Add New projects',
+					'edit_item' => 'Edit projects',
+				),
+				'public' => true, 
+				'show_ui' => true,
+				'show_in_nav_menus' => true,
+				'rewrite' => array( 'slug' => 'projects', 'with_front' => false ),
+				'hierarchical' => true,
+				'menu_position' => 5,
+				'has_archive' => true,
+				'exclude_from_search' =>true,
+				'supports' => array(
+				                     'title',
+									 'editor',
+                                     'thumbnail',
+                                     'excerpt',
+                                     'revisions',
+									 'custom-fields',
+									 'comments',
+									 'page-attributes'),
+				 'register_meta_box_cb' => 'add_events_metaboxes'	
+					) 
+				
+				);
 	$nvr_taxonomyargs = array(
 		'query_var' => true,
 		'hierarchical' => true, 

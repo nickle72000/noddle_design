@@ -318,3 +318,9 @@ width:80%;
 .oi table tr:nth-child(even){
  background-color: #E2E2E2;
 }
+.prop_side{
+width:20%!important;
+}
+.eight{
+width:79.667%!important;
+}

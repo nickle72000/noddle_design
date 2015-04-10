@@ -1,4 +1,7 @@
 <?php
+if (!session_id()) {
+    session_start();
+}
 if(!function_exists('nvr_pagination')){
 	function nvr_pagination($pages = '', $range = 2){  
 		$showitems = ($range * 2)+1;  
@@ -513,9 +516,8 @@ if(!function_exists('nvr_prop_get_image')){
 		return $nvr_return;
 	}
 }
-
-if(!function_exists('nvr_prop_get_box')){
-	function nvr_prop_get_box( $nvr_imgsize, $nvr_postid="",$nvr_class="", $nvr_unit = '', $nvr_cursymbol = '', $nvr_curplace = '' ){
+if(!function_exists('nvr_prop_get_box_custome')){
+	function nvr_prop_get_box_custome( $nvr_imgsize, $nvr_postid="",$nvr_class="", $nvr_unit = '', $nvr_cursymbol = '', $nvr_curplace = '',$content='' ){
 		
 		$nvr_initial = THE_INITIAL;
 		$nvr_output = "";
@@ -532,7 +534,153 @@ if(!function_exists('nvr_prop_get_box')){
 		$nvr_bed = (isset($nvr_custom[$nvr_initial."_room"][0]))? $nvr_custom[$nvr_initial."_room"][0] : '';
 		$nvr_bath = (isset($nvr_custom[$nvr_initial."_bathroom"][0]))? $nvr_custom[$nvr_initial."_bathroom"][0] : '';
 		$nvr_size = (isset($nvr_custom[$nvr_initial."_size"][0]))? $nvr_custom[$nvr_initial."_size"][0] : '';
+		$nvr_county = (isset($nvr_custom[$nvr_initial."_county"][0]))? $nvr_custom[$nvr_initial."_county"][0] : '';
+		$nvr_address = (isset($nvr_custom[$nvr_initial."_address"][0]))? $nvr_custom[$nvr_initial."_address"][0] : '';
+		$nvr_state = (isset($nvr_custom[$nvr_initial."_state"][0]))? $nvr_custom[$nvr_initial."_state"][0] : '';
+		$nvr_country = (isset($nvr_custom[$nvr_initial."_country"][0]))? $nvr_custom[$nvr_initial."_country"][0] : '';
+			
+		$nvr_prop_cat = 'property_category';
+		$nvr_categories = get_the_terms( $nvr_postid, $nvr_prop_cat );
+		$nvr_categoryarr = array();
+		if ( !empty( $nvr_categories ) ) {
+			foreach ( $nvr_categories as $nvr_category ) {
+				$nvr_categoryarr[] = $nvr_category->name;
+			}
+		  
+			$nvr_type = implode(', ', $nvr_categoryarr);
+		}else{
+			$nvr_type = '';
+		}
 		
+		$nvr_get_image = nvr_prop_get_image($nvr_imgsize, $nvr_postid );
+		extract($nvr_get_image);
+		
+		$nvr_prop_purpose = 'property_purpose';
+		$nvr_upper_meta = '';
+		$nvr_purposes = get_the_terms( $nvr_postid, $nvr_prop_purpose );
+		$nvr_purposearr = array();
+		if ( !empty( $nvr_purposes ) ) {
+			foreach ( $nvr_purposes as $nvr_purpose ) {
+				$nvr_purposearr[] = $nvr_purpose->name;
+			}
+		  
+			$nvr_upper_meta .= '<span class="meta-purpose">'.implode(", ", $nvr_purposearr).'</span>';
+		}
+		
+		$nvr_prop_city = 'property_city';
+		$nvr_cities = get_the_terms( $nvr_postid, $nvr_prop_city );
+		$nvr_cityarr = array();
+		if ( !empty( $nvr_cities ) ) {
+			foreach ( $nvr_cities as $nvr_city ) {
+				$nvr_cityarr[] = $nvr_city->name;
+			}
+		}
+		
+		$nvr_city = implode(', ', $nvr_cityarr);
+		
+//		if(!empty($nvr_price)){
+//			$nvr_upper_meta .= '<span class="meta-price">'.nvr_show_price($nvr_price, $nvr_cursymbol, $nvr_curplace).' '.$nvr_plabel.'</span>';
+//		}
+//		echo 'uihlkrijoptgupoe bu ewpouwepoiu'.$nvr_bigimageurl.'<br/>';
+//                exit();
+                
+		$nvr_output  .='<li class="prop-item-container '.esc_attr( $nvr_class ).'" style="width:280px!important;">';
+			$nvr_output  .='<div class="nvr-prop-box_custome">';
+				$nvr_output  .='<div class="nvr-prop-img" >';
+
+//					if($nvr_upper_meta!=''){
+//						$nvr_output .= '<div class="nvr-upper-meta">'.$nvr_upper_meta.'</div>';
+//					}
+					
+					$nvr_output .='<a class="image '.esc_attr( $nvr_rollover ).'" href="'.esc_url( $nvr_golink ).'" title="'.esc_attr( get_the_title($nvr_postid) ).'"></a>';
+					if($nvr_bigimageurl!=''){
+						$nvr_output .='<a class="image zoom" href="'. esc_url( $nvr_bigimageurl ) .'" '.$nvr_rel.' title="'.esc_attr( $nvr_bigimagetitle ).'"></a>';
+					}
+					
+					$nvr_output  .=$nvr_cf_thumb;
+					$nvr_output  .=$nvr_cf_full2;
+				$nvr_output  .='</div>';
+                                // get the terms related to post
+				$nvr_output_meta = '';
+				if ( !empty( $nvr_type ) ) {
+//					$nvr_output_meta .= '<span class="nvr-prop-type"><i class="fa fa-building"></i>&nbsp; '. $nvr_type .'</span>';
+					$nvr_output_meta .= '<span class="nvr-prop-type"><i class="fa fa-building"></i>&nbsp; '. $nvr_type .'</span>';
+				}
+				$nvr_output  .='<div class="nvr-prop-text">';
+				
+					$nvr_output	.='<h2 class="nvr-prop-title"><a href="'.esc_url( get_permalink($nvr_postid) ).'" title="'.esc_attr( get_the_title($nvr_postid) ).'">'.get_the_title($nvr_postid).'</a></h2>';
+					$nvr_output_addr = '<span>'.$nvr_address.' <br/>'.$nvr_county.' ,'.$nvr_state.'</span>';
+				//	$nvr_output_addr = nvr_string_limit_char($nvr_city.', '.$nvr_state, 40);
+//					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.'</div>';
+					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.' <div class="alignright">'.$nvr_output_meta.'</div></div>';
+					$nvr_output  .='<div class="clearfix"></div>';
+				$nvr_output  .='</div>';
+                                
+                                
+                                
+                                /*      post Content - Dev Comments    */
+				$nvr_output  .='<div class="nvr-prop-text">';
+				$content_post = get_post($nvr_postid);
+                                if(isset($content_post->post_content)){
+                                    $nvr_output_content=nvr_string_limit_char($content_post->post_content, 500);
+                                }
+//					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.'</div>';
+					
+				//	$nvr_output	.= '<div class="nvr-prop-content">'.$nvr_output_content.'</div>';
+					
+$nvr_output  .='<div class="clearfix"></div>';
+				$nvr_output  .='</div>';
+				$nvr_output  .='<div class="learn-more center"><a href="'.esc_url( get_permalink($nvr_postid) ).'" title="'.esc_attr( get_the_title($nvr_postid) ).'" class="btn-green">Learn More</a></div>';
+                                
+                                
+                                
+//				// get the terms related to post
+//				$nvr_output_meta = '';
+//				if ( !empty( $nvr_type ) ) {
+////					$nvr_output_meta .= '<span class="nvr-prop-type"><i class="fa fa-building"></i>&nbsp; '. $nvr_type .'</span>';
+//					$nvr_output_meta .= '<span class="nvr-prop-type"><i class="fa fa-building"></i>&nbsp; '. $nvr_type .'</span>';
+//				}
+				if ( !empty( $nvr_size ) ) {
+//					$nvr_output_meta .= '<span class="nvr-prop-size"><i class="fa fa-expand"></i>&nbsp; '.$nvr_size.' '. $nvr_unit .'</span>';
+				}
+//				if ( !empty( $nvr_bed ) ) {
+//					$nvr_output_meta .= '<span class="nvr-prop-bed"><i class="fa fa-inbox"></i>&nbsp; '.$nvr_bed.' '.__('Bed', THE_LANG).'</span>';
+//				}
+//				if ( !empty( $nvr_bath ) ) {
+//					$nvr_output_meta .= '<span class="nvr-prop-bath"><i class="fa fa-tint"></i>&nbsp; '.$nvr_bath.' '.__('Bath', THE_LANG).'</span>';
+//				}
+//				
+//				if(!empty($nvr_output_meta)){
+//					$nvr_output .= '<div class="nvr-prop-meta">';
+//						$nvr_output .= $nvr_output_meta;
+//					$nvr_output .= '<div>';
+//				}
+				$nvr_output  .='<div class="clearfix"></div>';
+			$nvr_output  .='</div>';
+		$nvr_output  .='</li>';
+		
+		return $nvr_output; 
+	}
+}
+if(!function_exists('nvr_prop_get_box')){
+	function nvr_prop_get_box( $nvr_imgsize, $nvr_postid="",$nvr_class="", $nvr_unit = '', $nvr_cursymbol = '', $nvr_curplace = '',$content='' ){
+		
+		$nvr_initial = THE_INITIAL;
+		$nvr_output = "";
+		global $post;
+		
+		if($nvr_postid==""){
+			$nvr_postid = get_the_ID();
+		}
+		
+		$nvr_custom = nvr_get_customdata($nvr_postid);
+                
+		$nvr_price = (isset($nvr_custom[$nvr_initial."_price"][0]))? $nvr_custom[$nvr_initial."_price"][0] : '';
+		$nvr_plabel = (isset($nvr_custom[$nvr_initial."_price_label"][0]))? $nvr_custom[$nvr_initial."_price_label"][0] : '';
+		$nvr_bed = (isset($nvr_custom[$nvr_initial."_room"][0]))? $nvr_custom[$nvr_initial."_room"][0] : '';
+		$nvr_bath = (isset($nvr_custom[$nvr_initial."_bathroom"][0]))? $nvr_custom[$nvr_initial."_bathroom"][0] : '';
+		$nvr_size = (isset($nvr_custom[$nvr_initial."_size"][0]))? $nvr_custom[$nvr_initial."_size"][0] : '';
+		$nvr_county = (isset($nvr_custom[$nvr_initial."_county"][0]))? $nvr_custom[$nvr_initial."_county"][0] : '';
 		$nvr_address = (isset($nvr_custom[$nvr_initial."_address"][0]))? $nvr_custom[$nvr_initial."_address"][0] : '';
 		$nvr_state = (isset($nvr_custom[$nvr_initial."_state"][0]))? $nvr_custom[$nvr_initial."_state"][0] : '';
 		$nvr_country = (isset($nvr_custom[$nvr_initial."_country"][0]))? $nvr_custom[$nvr_initial."_country"][0] : '';
@@ -607,8 +755,8 @@ if(!function_exists('nvr_prop_get_box')){
 				$nvr_output  .='<div class="nvr-prop-text">';
 				
 					$nvr_output	.='<h2 class="nvr-prop-title"><a href="'.esc_url( get_permalink($nvr_postid) ).'" title="'.esc_attr( get_the_title($nvr_postid) ).'">'.get_the_title($nvr_postid).'</a></h2>';
-//					$nvr_output_addr = nvr_string_limit_char($nvr_address.' '.$nvr_city.' '.$nvr_state.' '.$nvr_country, 40);
-					$nvr_output_addr = nvr_string_limit_char($nvr_city.', '.$nvr_state, 40);
+					$nvr_output_addr = '<p>'.$nvr_address.' <br/>'.$nvr_county.', '.$nvr_state.'</p>';
+					//$nvr_output_addr = nvr_string_limit_char($nvr_city.', '.$nvr_state, 40);
 //					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.'</div>';
 					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.' <div class="alignright">'.$nvr_output_meta.'</div></div>';
 					$nvr_output  .='<div class="clearfix"></div>';
@@ -623,8 +771,10 @@ if(!function_exists('nvr_prop_get_box')){
                                     $nvr_output_content=nvr_string_limit_char($content_post->post_content, 500);
                                 }
 //					$nvr_output	.= '<div class="nvr-prop-address"><i class="fa fa-map-marker"></i> '.$nvr_output_addr.'</div>';
+					
 					$nvr_output	.= '<div class="nvr-prop-content">'.$nvr_output_content.'</div>';
-					$nvr_output  .='<div class="clearfix"></div>';
+					
+$nvr_output  .='<div class="clearfix"></div>';
 				$nvr_output  .='</div>';
 				$nvr_output  .='<div class="learn-more center"><a href="'.esc_url( get_permalink($nvr_postid) ).'" title="'.esc_attr( get_the_title($nvr_postid) ).'" class="btn-green">Learn More</a></div>';
                                 
@@ -924,7 +1074,7 @@ if(!function_exists('nvr_property_getdata')){
 		$nvr_address = (isset($nvr_custom[$nvr_initial."_address"][0]))? $nvr_custom[$nvr_initial."_address"][0] : '';
 		$nvr_state = (isset($nvr_custom[$nvr_initial."_state"][0]))? $nvr_custom[$nvr_initial."_state"][0] : '';
 		$nvr_country = (isset($nvr_custom[$nvr_initial."_country"][0]))? $nvr_custom[$nvr_initial."_country"][0] : '';
-
+        $nvr_status= (isset($nvr_custom[$nvr_initial."_status"][0]))? $nvr_custom[$nvr_initial."_status"][0] : '';
 		$prop_slug 		= array();
 		$prop_category	= array();
 		$prop_purpose	= array();
@@ -992,6 +1142,26 @@ if(!function_exists('nvr_property_getdata')){
 		$nvr_price = nvr_show_price($nvr_price,$nvr_cursymbol,$nvr_curplace);
 		
 		$prop_markers=array();
+if($nvr_status=="Available Spaces"){
+$nvr_pin=get_template_directory_uri().'/images/gmaps/sky-blue-map.png';
+}else if($nvr_status=="Properties Sold"){
+$nvr_pin=get_template_directory_uri().'/images/gmaps/blue-map.png';
+}
+else if($nvr_status=="Completed Projects"){
+$nvr_pin=get_template_directory_uri().'/images/gmaps/darkbule-map.png';
+}
+else if($nvr_status=="In Development"){
+$nvr_pin=get_template_directory_uri().'/images/gmaps/green-map.png';
+}
+else if($nvr_status=="Active Assignments"){
+$nvr_pin=get_template_directory_uri().'/images/gmaps/purple-map.png';
+}
+else if($nvr_status=="Current Assignments"){
+$nvr_pin=get_template_directory_uri().'/images/gmaps/purple-deep-map.png';
+}
+else if($nvr_status=="Completed Assignments"){
+$nvr_pin=get_template_directory_uri().'/images/gmaps/dark-purple-map.png';
+}
 
 		$prop_markers['title']	= urlencode( get_the_title() );
 		$prop_markers['lat']    = $nvr_lat;
@@ -1207,7 +1377,7 @@ function nvr_quickviewproduct(){
 add_action("wp_ajax_nvr_changepinmap", "nvr_changepinmap");
 add_action("wp_ajax_nopriv_nvr_changepinmap", "nvr_changepinmap");
 function nvr_changepinmap(){
-	
+
 	if( !wp_verify_nonce( $_REQUEST['adv_filter_nonce'], "nvr_propadvancefilter_nonce")) {
     	exit("No naughty business please");
 	}
@@ -1265,6 +1435,7 @@ function nvr_changepinmap(){
 	}
 	$nvr_senddata['markers'] = $nvr_markers;
 	$nvr_senddata['propbox'] = $nvr_propbox;
+	
 	wp_reset_query();
 	wp_send_json($nvr_senddata);
 	die();
@@ -2099,4 +2270,17 @@ function getHTML($attachment){
 	
 	$html .= $path.'/'.$image; 
 	return $html;
+}
+
+function title_filter($where, &$wp_query){
+    global $wpdb;
+
+    if($search_term = $wp_query->get( 'search_prod_title' )){
+        /*using the esc_like() in here instead of other esc_sql()*/
+        $search_term = $wpdb->esc_like($search_term);
+        $search_term = ' \'%' . $search_term . '%\'';
+        $where .= ' AND ' . $wpdb->posts . '.post_title LIKE '.$search_term;
+    }
+
+    return $where;
 }

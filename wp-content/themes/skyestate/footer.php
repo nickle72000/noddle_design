@@ -6,7 +6,7 @@
  * @subpackage Skyestate
  * @since Skyestate 1.0
  */
- 
+
                 $nvr_shortname = THE_SHORTNAME;
 				$nvr_initial = THE_INITIAL;
 				
@@ -18,8 +18,9 @@
 				if(isset( $nvr_custom['_'.$nvr_initial.'_sectionbuilder'][0] )){
                     $nvr_sectionbuilders = unserialize($nvr_custom['_'.$nvr_initial.'_sectionbuilder'][0]);
                 }
+			
 				
-                if($nvr_pagelayout!='one-col'){ 
+                if($nvr_pagelayout!='one-col' && $nvr_pid!="2133"){ 
                 ?>
                 
                         <div class="clearfix"></div>
@@ -30,7 +31,98 @@
                 </aside><!-- sidebar -->
                 
                 <?php 
-                } 
+                } else{
+				$nvr_argquery='';
+				$nvr_argquery = array(
+		'post_type' => 'propertys');
+		query_posts($nvr_argquery); 
+		
+		
+		 while ( have_posts() ) : the_post();  $wpcf_street_address[] = get_post_meta(get_the_ID(),'nvr_state',true);
+		
+		endwhile;
+		//print_r($wpcf_street_address);
+	$result=array_unique($wpcf_street_address);
+	
+
+				?>
+				 <div class="clearfix"></div>
+                    </div><!-- main -->
+                </section><!-- content -->
+				<aside id="sidebar" class="four columns prop_side">
+				
+				<div><form action="" id="search_prop"><input type="text" name="text" id="search" value="<?php echo $_GET['search'];?> "/><input type="submit" name="submit" value="submit"/></form></div>
+                    <ul>
+					<li>Filter By:</li>
+					<li><select class="basic-example" >
+	<option value=""  >State</option>
+	<?php foreach($result as $val){
+	if($val!=""){
+	?>
+	<option value="<?php echo $val ;?>" <?php if($val==$_GET['state']){?>selected<?php }?>><?php echo $val ;?></option>
+	<?php }}?>
+</select></li>
+					<li><select class="city" <?php if($_GET['state']==""){?> disabled<?php }?>>
+					<option value=""  >City</option>
+					<?php if($_GET['state']!=''){
+		$nvr_argquery='';
+				$nvr_argquery = array(
+		'post_type' => 'propertys');
+		$nvr_argquery2[] = array(
+					'key'		=> 'nvr_state',
+					'value'		=> $_GET['state'],
+					'compare' => '=',
+				);
+				$nvr_argquery['meta_query']=$nvr_argquery2;
+		query_posts($nvr_argquery); 
+		
+		
+		 while ( have_posts() ) : the_post();  echo get_the_ID();$nvr_county[] = get_post_meta(get_the_ID(),'nvr_county',true);
+		
+		endwhile;
+		//print_r($wpcf_street_address);
+	$resultnvr_county=array_unique($nvr_county);
+	
+	foreach($resultnvr_county as $val){
+	?>
+	<option value="<?php echo $val ;?>" <?php if($val==$_GET['city']){?>selected<?php }?>><?php echo $val ;?></option>
+	<?php 	}}?>
+					</select>
+<?php if($_GET['state']==""){?> <style>
+
+#heapbox_44956659 .handler{
+
+dislpay:none;
+}
+</style><?php }?>
+					</li>
+					<li>
+					<select class="type">
+					<option value=""  >Type</option>
+					<?php  $terms = get_terms( 'property_category' );
+					
+					//print_r($terms);
+					foreach ( $terms as $term ) {
+					?>
+					<option value="<?php echo $term->name ;?>" <?php if($term->name==$_GET['type']){?>selected<?php }?>><?php echo $term->name ;?></option>
+					<?php }?>
+					</select>
+					
+					</li>
+					
+					<li><select class="status_prop">
+					<option value="">Current Available </option>
+					
+					<?php  $nvr_propstatuses = nvr_get_option($nvr_shortname.'_property_status'); 
+					   for($i=0;$i<count($nvr_propstatuses);$i++){
+					?>
+					<option value="<?php echo str_replace(' ', '_',$nvr_propstatuses[$i]) ;?>" <?php if(str_replace(' ', '_',$nvr_propstatuses[$i])==str_replace(' ', '_',$_GET['status_prop'])){?>selected<?php }?>><?php echo $nvr_propstatuses[$i] ;?></option>
+					<?php }?>
+					</select></li>
+					</ul>
+                </aside>
+				
+				<?php }
                 ?>
             
                 <div class="clearfix"></div>

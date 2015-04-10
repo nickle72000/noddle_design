@@ -12,7 +12,9 @@
  * @since Skyestate 1.0
  */
 
-get_header(); ?>
+get_header(); 
+//print_r($_SESSION);
+?>
 
 	<?php
     $nvr_initial = THE_INITIAL;
@@ -76,11 +78,58 @@ get_header(); ?>
 	$nvr_argquery = array(
 		'post_type' => 'propertys',
 		'orderby' => $nvr_orderby,
-		'order' => $nvr_ordersort
-	);
+		'order' => $nvr_ordersort,
 	
+	);
+	if($_GET['search']!=''){
+$nvr_argquery['search_prod_title']= $_GET['search'];
+$lint='?search='.$_GET['search'];
+}
 	$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 	$nvr_paged = $paged;
+	
+		if($_GET['state']!=""){
+		$state=$_GET['state'];
+$nvr_argquery2[] = array(
+					'key'		=> 'nvr_state',
+					'value'		=> $state,
+					'compare' => '=',
+				);
+				
+				
+				if($lint==""){$lint="?state=".$state;}else{$lint="&state=".$state;}
+				}
+				if($_GET['status_prop']!=""){
+		$nvr_status=$_GET['status_prop'];
+$nvr_argquery2[] = array(
+					'key'		=> 'nvr_status',
+					'value'		=> str_replace('_', ' ',$nvr_status),
+					'compare' => '=',
+				);
+				
+				
+				if($lint==""){$lint="?status_prop=".$nvr_status;}else{$lint="&status_prop=".$nvr_status;}
+				}
+				if($_GET['type']!=''){
+				
+				$nvr_taxquery[] = array(
+					'taxonomy' 	=> 'property_category',
+					'field'		=> 'slug',
+					'terms'		=> $_GET['type']
+				);
+				$nvr_argquery['tax_query'] = $nvr_taxquery;
+				if($lint==""){$lint='?type='.$_GET['type'];}else{$lint='&type='.$_GET['type'];}
+				}
+				if($_GET['city']!=""){
+				$city=$_GET['city'];
+				$nvr_argquery2[] = array(
+					'key'		=> 'nvr_county',
+					'value'		=> $city,
+					'compare' => '=',
+				);
+				$lint.='&city='.$city;
+				}
+				
 	if(isset($nvr_paged)){
 		$nvr_argquery['paged'] = $nvr_paged;
 	}
@@ -98,7 +147,12 @@ get_header(); ?>
 			)
 		);
 	}
-
+	
+				$nvr_argquery['meta_query']=$nvr_argquery2;
+				add_filter( 'posts_where', 'title_filter', 10, 2 );
+				//print_r($nvr_argquery);
+				//$customPosts = new WP_Query($nvr_argquery);
+//echo "Last SQL-Query: {$customPosts->request}";
 	query_posts($nvr_argquery); 
 	global $post, $wp_query;
 	?>
@@ -123,22 +177,24 @@ get_header(); ?>
 						$nvr_literms = implode( " ", $approvedterms );
 					}
 					
-					echo nvr_prop_get_box( $nvr_imgsize, get_the_ID(), 'element columns '.$nvr_literms, $nvr_unit, $nvr_cursymbol, $nvr_curplace );
+					echo nvr_prop_get_box_custome( $nvr_imgsize, get_the_ID(), 'element columns '.$nvr_literms, $nvr_unit, $nvr_cursymbol, $nvr_curplace );
 						
 					$nvr_classpf=""; 
-						
+						$t=1;
 			endwhile; // End the loop. Whew.
 			?>
+<?php if($t<=0){echo "<li><h3>No Properties Availabul</h3></li>";}?>
 			<li class="nvr-prop-clear"></li>
 			</ul>
 			<div class="clearfix"></div>
+			<div> <?php wp_pagenavi($lint); ?></div>
 		</div><!-- end .nvr-property-container -->
 	</div>
               
     <?php /* Display navigation to next/previous pages when applicable */ ?>
     <?php if (  $wp_query->max_num_pages > 1 ) : ?>
      <?php if(function_exists('wp_pagenavi')) { ?>
-         <?php wp_pagenavi(); ?>
+         <?php //wp_pagenavi(); ?>
      <?php }else{ ?>
         <div id="nav-below" class="navigation">
                 <div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Previous', THE_LANG ) ); ?></div>

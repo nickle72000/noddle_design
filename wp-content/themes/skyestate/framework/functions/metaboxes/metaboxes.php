@@ -1,7 +1,27 @@
 <?php
 add_action('add_meta_boxes', 'nvr_add_metabox');
-
+add_action( 'add_meta_boxes', 'add_events_metaboxes' );
 // Add meta box
+function wpt_events_location() {
+	global $post;
+	echo "ASDF";exit;
+	// Noncename needed to verify where the data originated
+	echo '<input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="' . 
+	wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+	
+	// Get the location data if its already been entered
+	$location = get_post_meta($post->ID, '_location', true);
+	
+	// Echo out the field
+	echo '<input type="text" name="_location" value="' . $location  . '" class="widefat" />';
+
+}
+function add_events_metaboxes() {
+
+	add_meta_box('wpt_events_location1', 'Event Location', 'wpt_events_location1', 'events', 'side', 'default');
+	}
+	
+	
 function nvr_add_metabox() {
 	global $nvr_meta_boxes;
 	if(is_array($nvr_meta_boxes)){
@@ -9,6 +29,7 @@ function nvr_add_metabox() {
 			$metaargs = array(
 				'meta_array' => $nvr_meta_box
 			);
+			
 			add_meta_box($nvr_meta_box['id'], $nvr_meta_box['title'], $nvr_meta_box['showbox'], $nvr_meta_box['page'], $nvr_meta_box['context'], $nvr_meta_box['priority'], $metaargs);
 		}
 	}

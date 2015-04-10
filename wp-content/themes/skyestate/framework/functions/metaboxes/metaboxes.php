@@ -4,7 +4,7 @@ add_action( 'add_meta_boxes', 'add_events_metaboxes' );
 // Add meta box
 function wpt_events_location() {
 	global $post;
-	echo "ASDF";exit;
+
 	// Noncename needed to verify where the data originated
 	echo '<input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="' . 
 	wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
@@ -16,11 +16,91 @@ function wpt_events_location() {
 	echo '<input type="text" name="_location" value="' . $location  . '" class="widefat" />';
 
 }
-function add_events_metaboxes() {
 
-	add_meta_box('wpt_events_location1', 'Event Location', 'wpt_events_location1', 'events', 'side', 'default');
+function add_events_metaboxes() {
+$nvr_meta_boxes0 = array(
+	'id' => 'page-property-option-meta-box',
+	'title' => __('Page Property Options',THE_LANG),
+	'page' => 'page',
+	'showbox' => 'meta_option_show_box',
+	'context' => 'normal',
+	'priority' => 'high',
+	'fields' => array(
+		array(
+			'name' => __('Property Categories',THE_LANG),
+			'desc' => '<em>'.__('Select more than one property category to make the property filter works.',THE_LANG).'</em>',
+			'id' => 'prop_categories',
+			'type' => 'checkbox-property-categories',
+			'std' => ''
+		)));
+		$metaargs = array(
+				'meta_array' => $nvr_meta_boxes0
+			);
+add_meta_box('prop_categories', __('Property Categories',THE_LANG), 'meta_option_show_box', 'projects', 'normal', 'high',$metaargs);
+	
+	$nvr_countries = nvr_country_list();
+$nvr_optcountry = array(
+	'' => __('Select Country', THE_LANG)
+);
+for($i=0;$i<count($nvr_countries);$i++){
+	$nvr_country = $nvr_countries[$i];
+	$nvr_optcountry[$nvr_country] = $nvr_country;
+}
+	
+	$nvr_meta_boxes1 = array(
+	'id' => 'propertys-address-option-meta-box',
+	'title' => __('Property Address',THE_LANG),
+	'page' => 'propertys',
+	'showbox' => 'meta_option_show_box',
+	'context' => 'normal',
+	'priority' => 'high',
+	'fields' => array(
+		array(
+			'name' => __('Address',THE_LANG),
+			'desc' => '<em>'.__('Input the property address.',THE_LANG).'</em>',
+			'id' => $nvr_initial.'_address',
+			'type' => 'textarea',
+			'std' => ''
+		),
+		array(
+			'name' => __('County',THE_LANG),
+			'desc' => '<em>'.__('Input the property county.',THE_LANG).'</em>',
+			'id' => $nvr_initial.'_county',
+			'type' => 'text',
+			'std' => ''
+		),
+		array(
+			'name' => __('State/Province',THE_LANG),
+			'desc' => '<em>'.__('Input the property state or province.',THE_LANG).'</em>',
+			'id' => $nvr_initial.'_state',
+			'type' => 'text',
+			'std' => ''
+		),
+		array(
+			'name' => __('Country',THE_LANG),
+			'desc' => '<em>'.__('Select the property country.',THE_LANG).'</em>',
+			'id' => $nvr_initial.'_country',
+			'type' => 'select',
+			'options' => $nvr_optcountry,
+			'std' => ''
+		),
+		array(
+			'name' => __('Zip/Post Code',THE_LANG),
+			'desc' => '<em>'.__('Input the property ZIP or post code.',THE_LANG).'</em>',
+			'id' => $nvr_initial.'_zipcode',
+			'type' => 'text',
+			'std' => ''
+		)
+	)
+);
+
+$metaargs = array(
+				'meta_array' => $nvr_meta_boxes1
+			);
+add_meta_box('prop_address', __('Property Address',THE_LANG), 'meta_option_show_box', 'projects', 'normal', 'high',$metaargs);
 	}
 	
+
 	
 function nvr_add_metabox() {
 	global $nvr_meta_boxes;

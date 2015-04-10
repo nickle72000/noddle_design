@@ -31,7 +31,7 @@
                 </aside><!-- sidebar -->
                 
                 <?php 
-                } else{
+                } else if($nvr_pid=="2133"){
 				$nvr_argquery='';
 				$nvr_argquery = array(
 		'post_type' => 'propertys');

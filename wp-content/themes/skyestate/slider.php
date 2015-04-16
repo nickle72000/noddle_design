@@ -29,7 +29,7 @@ if(is_singular('peoplepost')){
     
 		<?php if($nvr_cf_sliderLayer==''){ ?>
         	
-            <?php if(is_singular('propertys')){ ?>
+            <?php if(is_singular('propertys') || is_singular('projects')){ ?>
                 <div id="slidercontainer">
                     <section id="slider" class="propertyslider">
                         <div id="slideritems" class="flexsliderprop preloader">

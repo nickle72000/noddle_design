@@ -164,9 +164,11 @@ if($nvr_txtContainerWidth>1100){
                             <?php
                                 
                                 if($nvr_cf_siteLayout=='nvrlayout4'){
+                                    get_search_form();
                                     nvr_primary_menu(); /* file: engine/header-functions.php */
                                     nvr_output_minicart(); /* file: engine/header-functions.php */
                                 }else{
+                                    get_search_form();
 									nvr_output_minicart(); /* file: engine/header-functions.php */
                                     nvr_primary_menu(); /* file: engine/header-functions.php */
                                 }
@@ -180,6 +182,8 @@ if($nvr_txtContainerWidth>1100){
 			<?php 
             if($nvr_issliderdisplayed && $nvr_cf_siteLayout!='nvrlayout3'){
             	get_template_part( 'slider');
+				
+				
             }
 			
 			if(!$nvr_issliderdisplayed && $nvr_istitledisplayed) {
@@ -263,7 +267,7 @@ if($nvr_txtContainerWidth>1100){
                 
                 <?php if($nvr_pagelayout!='one-col'){ ?>
                         
-                    <section id="content" class="eight columns">
+                    <section id="content" class="nine columns">
                         <div class="main">
                 
                 <?php } ?>

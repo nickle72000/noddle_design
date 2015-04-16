@@ -23,6 +23,7 @@ if(windowSize <=767 ){
 
 }
 	});
+
 jQuery(document).ready(function() {
     
 		jQuery(".basic-example").heapbox();
@@ -31,6 +32,7 @@ jQuery(document).ready(function() {
 		jQuery(".status_prop").heapbox();
 		jQuery(".heapOption a").click(function(){
 		 var search='';
+		 var type_page=jQuery("input[name='type']").val();
 		   var ajaxurl         	= interfeis_var.adminurl+'admin-ajax.php';
 		 
 			if(jQuery(".basic-example option:selected").val()!=''){
@@ -39,24 +41,24 @@ jQuery(document).ready(function() {
 		if(jQuery(".type option:selected").val()!=""){  search+='&type='+jQuery(".type option:selected").val();}
 		//if(jQuery("#search").val()!="" && jQuery("#search").val()!=" "){  search+='&search='+jQuery("#search").val();}
 		if(jQuery(".status_prop option:selected").val()!=""){  search+='&status_prop='+jQuery(".status_prop option:selected").val();}
-		window.location.href =interfeis_var.siteurl+'/property/?state='+jQuery(".basic-example option:selected").val()+''+search;
+		window.location.href =interfeis_var.siteurl+'/'+type_page+'/?state='+jQuery(".basic-example option:selected").val()+''+search;
 		
 		}else if(jQuery(".type option:selected").val()!=''){
 		if(jQuery(".status_prop option:selected").val()!=""){  search+='&status_prop='+jQuery(".status_prop option:selected").val();}
 		//if(jQuery("#search").val()!=""){  search+='&search='+jQuery("#search").val();}
-			window.location.href =interfeis_var.siteurl+'/property/?type='+jQuery(".type option:selected").val()+''+search;
+			window.location.href =interfeis_var.siteurl+'/'+type_page+'/?type='+jQuery(".type option:selected").val()+''+search;
 		}else if(jQuery(".status_prop option:selected").val()!=''){
 		if(jQuery(".type option:selected").val()!=""){  search+='&type='+jQuery(".type option:selected").val();}
 		//if(jQuery("#search").val()!=""){  search+='&search='+jQuery("#search").val();}
-		window.location.href =interfeis_var.siteurl+'/property/?status_prop='+jQuery(".status_prop option:selected").val()+''+search;
+		window.location.href =interfeis_var.siteurl+'/'+type_page+'/?status_prop='+jQuery(".status_prop option:selected").val()+''+search;
 		
 		}else{
-		window.location.href =interfeis_var.siteurl+'/property/';
+		window.location.href =interfeis_var.siteurl+'/'+type_page+'/';
 		}
 		});
 		
 		jQuery( "#search_prop" ).submit(function( event ) {
-		window.location.href =interfeis_var.siteurl+'/property/?search='+jQuery("#search").val();
+		window.location.href =interfeis_var.siteurl+'/'+type_page+'/?search='+jQuery("#search").val();
 	return false;
 		});
 		

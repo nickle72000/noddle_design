@@ -5,7 +5,7 @@ Tags: retina, images, image, admin, attachment, media, files, iphone, ipad, plug
 License: GPLv2 or later
 Requires at least: 3.5
 Tested up to: 4.1.1
-Stable tag: 3.2.6
+Stable tag: 3.2.8
 
 Make your website look beautiful and crisp on Retina / High DPI displays.
 
@@ -27,6 +27,13 @@ Languages: English, French.
 
 == Changelog ==
 
+= 3.2.8 =
+* Fix: Support for custom uploads directory.
+* Info: Added error_log for BedRock related debugging (commented, check line 137 in main file). BedRock users should try to modify the wr2x_get_wordpress_upload_root function (in wp-retina-2x.php) to make it work for them. Let's talk about it on https://wordpress.org/support/topic/path-incorrect-as-custom-uploads-directory-location-with-bedrock.
+
+= 3.2.7 =
+* Add: API filters to give the opportunity to other plugins to plug into... this plugin ;)
+
 = 3.2.6 =
 * Add: Check the maximum upload value in PHP settings before actually uploading (to avoid silenced crashes).
 * Update: PictureFill from 2.2.0 to 2.3.0 (https://github.com/scottjehl/picturefill/releases/tag/2.3.0).
@@ -35,7 +42,6 @@ Languages: English, French.
 * Add: Custom CDN Domain support (check the "Custom CDN Domain" option).
 * Fix: Removed a console.log that was forgotten ;)
 * Change: different way of getting the temporary folder to write files (might help in a few cases).
-* Info: If you are curious about the abandoned island of Gunkanjima (Japan), please check my article here: http://www.totorotimes.com/gunkanjima/. I would love tweets and shares, that will definitely help me to do more adventures such as that one. Thank you and have a nice week-end everyone!
 
 = 3.2.2 =
 * Fix: Drag & drop images wasn't working on Firefox and Safari.
@@ -270,11 +276,26 @@ Quick and easy installation:
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Check the settings of WP Retina 2x in the WordPress administration screen.
 4. Check the Retina Dashboard.
-6. Read the tutorial about the plugin: <a href='http://apps.meow.fr/wp-retina-2x/tutorial//'>WP Retina 2x Tutorial</a>.
+6. Read the tutorial about the plugin: <a href='http://apps.meow.fr/wp-retina-2x/tutorial/'>WP Retina 2x Tutorial</a>.
 
 == Frequently Asked Questions ==
 
 The FAQ can be found at http://apps.meow.fr/wp-retina-2x/faq/.
+
+Developer, WP Retina 2x has a little API. Here are a few filters and actions you might want to use.
+
+= Actions =
+* wr2x_retina_file_added: called when a new retina file is created, 1st argument is $attachment_id (of the media) and second is the $retina_filepath
+* wr2x_retina_file_removed: called when a new retina file is removed, 1st argument is $attachment_id (of the media) and second is the $retina_filepath
+
+= Filters =
+* wr2x_img_url: you can check and potentially override the $wr2x_img_url (normal/original image from the src) that will be used in the srcset for 1x
+* wr2x_img_retina_url: you can check and potentially override the $wr2x_img_retina_url (retina image) that will be used in the srcset for 2x
+* wr2x_img_src: you can check and potentially override the $wr2x_img_src that will be used in the img's src (only used in Pro version)
+
+== Upgrade Notice ==
+
+None.
 
 == Screenshots ==
 

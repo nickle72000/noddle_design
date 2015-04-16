@@ -31,7 +31,7 @@ get_header();
     $nvr_orderby = (isset($nvr_custom["prop_orderby"][0]))? $nvr_custom["prop_orderby"][0] : "date";
     $nvr_ordersort = (isset($nvr_custom["prop_sort"][0]))? $nvr_custom["prop_sort"][0] : "DESC";
     $nvr_categories = explode(",",$nvr_cats);
-	
+	$nvr_argquery2='';
 	$nvr_propterm = 'property_category';
 	
 	$nvr_approvedcats = array();
@@ -81,15 +81,17 @@ get_header();
 		'order' => $nvr_ordersort,
 	
 	);
-	if($_GET['search']!=''){
-$nvr_argquery['search_prod_title']= $_GET['search'];
-$lint='?search='.$_GET['search'];
+global $search,$state,$city,$type,$status_prop,$lint,$t;
+	registerglobal('state','city','type','status_prop','search');
+	if($search!=''){
+$nvr_argquery['search_prod_title']= $search;
+$lint='?search='.$search;
 }
 	$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 	$nvr_paged = $paged;
 	
-		if($_GET['state']!=""){
-		$state=$_GET['state'];
+		if($state!=""){
+		$state=$state;
 $nvr_argquery2[] = array(
 					'key'		=> 'nvr_state',
 					'value'		=> $state,
@@ -99,8 +101,8 @@ $nvr_argquery2[] = array(
 				
 				if($lint==""){$lint="?state=".$state;}else{$lint="&state=".$state;}
 				}
-				if($_GET['status_prop']!=""){
-		$nvr_status=$_GET['status_prop'];
+				if($status_prop!=""){
+		$nvr_status=$status_prop;
 $nvr_argquery2[] = array(
 					'key'		=> 'nvr_status',
 					'value'		=> str_replace('_', ' ',$nvr_status),
@@ -110,18 +112,18 @@ $nvr_argquery2[] = array(
 				
 				if($lint==""){$lint="?status_prop=".$nvr_status;}else{$lint="&status_prop=".$nvr_status;}
 				}
-				if($_GET['type']!=''){
+				if($type!=''){
 				
 				$nvr_taxquery[] = array(
 					'taxonomy' 	=> 'property_category',
 					'field'		=> 'slug',
-					'terms'		=> $_GET['type']
+					'terms'		=> $type
 				);
 				$nvr_argquery['tax_query'] = $nvr_taxquery;
-				if($lint==""){$lint='?type='.$_GET['type'];}else{$lint='&type='.$_GET['type'];}
+				if($lint==""){$lint='?type='.$type;}else{$lint='&type='.$type;}
 				}
-				if($_GET['city']!=""){
-				$city=$_GET['city'];
+				if($city!=""){
+				$city=$city;
 				$nvr_argquery2[] = array(
 					'key'		=> 'nvr_county',
 					'value'		=> $city,

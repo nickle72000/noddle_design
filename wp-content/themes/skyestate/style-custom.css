@@ -62,6 +62,7 @@ a.btn-green{font-size:18px; font-family: 'lato', sans-serif; padding:10px 25px; 
 
 /* alignments */
 .center{text-align: center}
+.prop-item-container{}
 .clear{clear:both; line-height:0; padding:0;}
 
 /*footer sidebar*/
@@ -101,8 +102,6 @@ label.cur-asign{color:#814f6a}
 label.comp-asign{color:#4b356c}
 
 .filterbox{display:block;}
-
-
 
 /* About Design */
 #outertop {
@@ -232,9 +231,362 @@ body .wpcf7 input[type="text"], body .wpcf7 input[type="email"] {
 	height: 150px;
 	width: 80%;
 }
+.nvr-people li .peoplecontainer{
+	text-align: left;
+	-webkit-box-shadow: 6px 5px 0px -2px rgba(191,191,191,1);
+	-moz-box-shadow: 6px 5px 0px -2px rgba(191,191,191,1);
+	box-shadow: 6px 5px 0px -2px rgba(191,191,191,1);
+	border:1px solid #dcd7d2;
+	padding: 0 15px 15px;
+}
+.nvr-people li .peoplecontainer .imgcontainer{
+	margin: 0 -15px;
+}
+.nvr-people .peopletitle {
+	padding: 14px 0px 0px 0px;
+}
+.nvr-people .peopletitle h5 {
+	font-size: 18px;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+.nvr-people .peoplecontainer .peopleinfo {
+	font-size: 14px;
+}
+.nvr-people .peopletitle h5 a {
+	color: #666666;
+}
+.nvr-people .leader_mail a i{
+	padding-right: 5px;
+}
+.nvr-people .leader_mail a {
+color: #07bec6;
+  font-size: 13px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 183px;
+  overflow: hidden;
+  display: block;
+}
+.nvr-people .peopleinfo {
+	padding-bottom: 15px;
+}
+.nvr-people .row .three{
+	width: 20%;
+}
+
+/* 04-06-2015 */
+.team_members {
+	background: #07bec6;
+	padding: 70px 0;
+}
+.team_mem_main {
+	background: #ffffff;
+	-webkit-box-shadow: 7px 7px 0px -2px rgba(5,124,129,1);
+	-moz-box-shadow: 7px 7px 0px -2px rgba(5,124,129,1);
+	box-shadow: 7px 7px 0px -2px rgba(5,124,129,1);
+	padding: 10px 20px;
+	overflow: hidden;
+	margin-bottom: 20px;
+	position: relative;
+}
+.team_title {
+	font-size: 18px;
+	text-transform: uppercase;
+	float: left;
+	width: 40%;
+}
+.mem_design {
+	float: left;
+	width: 40%;
+}
+.mem_mail {
+	float: right;
+	width: 20%;
+	text-align: right;
+}
+.mem_mail a {
+	color:#07bec6;
+}
+.mem_mail a i {
+	padding-right: 5px;
+}
+.testimon_head span.team_icon {
+  	background-position: -211px -8px;
+}
+
+.mem_m_mail {
+    float: right;
+    position: absolute;
+    right: 20px;
+    top: 12px;
+}
+
+.mem_m_mail a {
+	background: #217FB2;
+	color: #ffffff;
+	display: block;
+	padding: 9px 20px;
+	text-transform: uppercase;
+	font-size: 15px;
+}
+.mem_m_mail a:hover {
+	background: #1d5c81;
+}
+body a.view_bio {
+	color: #FFF;
+	min-width: 100px;
+	font-size: 16px;
+	letter-spacing: inherit;
+}
+
+h2.bio_title span {
+	background: #efedf4;
+	text-transform: uppercase;
+	font-size: 42px;
+	display: inline-block;
+	padding: 10px 60px 10px 20px;
+	font-weight: normal;
+}
+.bio_title {
+    margin-bottom: 20px;
+}
+#cboxContent .left_biodata p {
+	padding-right: 28px;
+}
+#cboxContent .mem_des_wp p {
+	margin-bottom: 3px;
+}
+#cboxContent p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: normal;
+    color: #666666;
+}
+#cboxContent h4 {
+	font-size: 24px;
+	font-weight: normal;
+}
+.no-margin-b {
+	margin-bottom: 0;
+}
+body #cboxClose {
+	top: 0;
+	bottom: inherit;
+	min-width: inherit;
+	background: transparent url("images/about_sprite.png") no-repeat scroll -318px -8px;
+	width: 40px;
+	height: 45px;
+}
+body #cboxClose:hover {
+	background: transparent url("images/about_sprite.png") no-repeat scroll -318px -8px;
+}
+body #cboxLoadedContent {
+	margin-bottom: 0;
+}
+
+ @media only screen and (min-width: 767px) {
+	.mem_m_mail {
+		display: none;
+	}
+}	
+@media only screen and (max-width: 1100px) {
+	.nvr-people .row .three{
+		width: 25%;
+	}
+	.team_title {
+		width: 35%;
+	}
+	.mem_design {
+    	width: 35%;
+	}
+	.mem_mail {
+    	width: 30%;
+	}
+}	
+ /* Property Listing */
+.property_filter .nvr-prop-box {box-shadow: 5px 5px 0px #BFBFBF; border:1px solid #DBDAD5;}
+#sidebar #searchform .searcharea #s { background: #F3F3F3;  padding-right: 30px; width: 88%; }
+#sidebar #searchform .searcharea #s:before { content: ""; color: #FF0000;  }
+#sidebar .widget-title { text-align: left; font-family: 'lato', sans-serif; font-size: 24px; font-weight: 100; color: #07bec6}
+#sidebar .widget-title { border-color: #07bec6; }
+#sidebar .widget-title span { color: #07bec6;}
+
+.nvr-prop-address > span { font-size: 10px; line-height: 17px; width: 39%; }
+.alignright, img.alignright { margin-left: 10px; }
+
+/* Property Listing New styles */
+.page-template-template-property-php .prop-item-container {box-shadow: 5px 5px 0px #BFBFBF; border:1px solid #DBDAD5;margin-right: 20px;
+    padding: 0;}
+
+#sidebar .heapBox .holder { background: #ffffff; border-bottom: 0px solid #07bec6;  border-top: 1px solid #07bec6; height: 33px; text-indent: 20px; text-transform: uppercase;  color: #07bec6; }
+li.filter-title { color: #07bec6; font-size: 21px; margin: 20px 0 10px !important;  text-transform: uppercase; font-size: 24px; font-family: 'lato', sans-serif; font-weight: 300; }
+.spacer {height: 20px;}
+
+.heapBox { width: 100%; }
+.heapBox a {color: #07bec6; }
+.heapBox div.heap { background: #ffffff !important; border: 1px solid #07bec6;  top: 0px !important; width: 100% !important; box-shadow: 3px 3px 0px #bfbfbf; z-index: 11 }
+.heap .heapOptions { background: #FFFFFF; }
+
+.sidebar-search {   height: 46px;}
+#sidebar { font-family: 'lato', sans-serif; font-weight: 300;}
+#sidebar #search { background:#F3F3F3; border-radius: 0;  font-size: 20px; padding: 10px 30px 10px 10px; width: 80%; position: absolute;}
+#sidebar li li {  border-bottom-color: #ffffff;  margin: 0; padding: 0;}
+#sidebar li li a { background: #FFFFFF; color: #868686; text-transform: uppercase; font-size: 18px;}
+#sidebar li li a:hover, #sidebar li li a.active { color: #227fb1; }
+.heapBox .heap .heapOptions .heapOption a {background: #FFFFFF;}
+.heapBox .heap .heapOptions .heapOption a.selected { background: #FFFFFF;}
+#sidebar .heapBox .holder {width: 84% !important; font-size: 18px; font-family: 'lato', sans-serif; font-weight: 300;  }
+.heapBox .holder, .heapBox .handler { border-top: 1px solid #07bec6;}
+.nvr-prop-address > span {  display: inline-block; line-height: 15px;}
+.alignright, img.alignright {margin-left: 5px;}
+
+
+.nvr-prop-container .nvr-prop-title { margin: 0 0 10px; text-align: center; text-transform: uppercase; font-weight: normal; }
+.nvr-prop-container .nvr-prop-title a{ color:#666666}
+.nvr-prop-container .nvr-prop-type, .nvr-prop-container .nvr-prop-size, .nvr-prop-container .nvr-prop-bed { margin-right: 0;}
+
+
+/*login */
+.login .input[type="text"], .login input[type="email"], .login textarea, input[type="password"], .login select { border: 2px solid #EEEDF4; color: #808080;  font-size: 16px; text-transform: uppercase;}
+.login .input-text { margin: 0px 0;}
+#loginform .input-text { width: 20%}
+.login .forget-password a{ color: #11e3ee;  margin-left: 10px; vertical-align: bottom;}
+.login .forget-password a:hover { color:#227fb1;}
+.button, .button:visited, #maincontent input[type="submit"], #maincontent input[type="reset"], button { background: #227FB1; border-color: #227FB1; color: #ffffff; }
+
+/* Top Search*/
+.top-search  {float: none;  text-align: right;margin-bottom: -10px; }
+.top-search #searchform #s { padding:5px; background:#EFEFEF; margin-right: 15px;}
+.topcontainer.container { margin-top: 25px;}
+
+.search-results .wp-pagenavi {margin:15px 0; text-align:center;}
+.search-results #maincontent.twelve.columns .postscontainer.classic {  margin:inherit;  max-width: inherit; }
+.search-results .posttitle, .search-results .posttitle a, .search-results .posttitle a:visited {  color: #07bec6; font-weight: normal; text-transform: uppercase; font-family: lato,sans-serif !important; }
+
+.team_members .flex-direction-nav {	display: block; }
+
+
+.input-append.span12 {
+    position: relative;
+}
+#search_prop { width: 100%;}
+
+#search_prop .search-query {
+    padding-right: 3px;
+    padding-right: 4px \9;
+    padding-left: 3px;
+    padding-left: 4px \9;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#search_prop button {
+    border: 0;
+    background: none;
+    min-width: 10px;
+    padding: 13px 16px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    
+    
+   
+}
+
+.search-query:focus + button {
+    z-index: 3;
+}
+
+
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon input {
+    padding-left: 30px;    
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
+.right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 30px;    
+}
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
+.icon-search:before {
+    content: ""; 
+    color: #CCCCCC;
+    font-family: "fontawesome";
+    font-size: 18px;
+    font-style: normal;    
+}
+
+
+.flex-direction-nav{
+    display:none;
+}
+.site_plan{
+    text-align:center;
+}
+
+.site_plan p{
+    background-color: #25bcba;
+    color: white;
+    padding: 15px;
+    width: 14%;
+}
+.tenants{
+    float:left;
+    width:50%;
+}
+.tenants h3{
+    text-transform: uppercase;
+}
+.tenants table{
+    width:80%;
+}
+.tenants table tr:nth-child(2n + 1){
+    background-color: #E2E2E2;
+}
+.oi h3{
+    text-transform: uppercase;
+}
+.oi{
+    float:left;
+    width:50%;
+
+}
+.oi table{
+    width:80%;
+}
+
+.oi table tr:nth-child(even){
+    background-color: #E2E2E2;
+}
 
 
 @media only screen and (max-width: 767px) {
+	.nvr-people .leader_mail a {
+		width: auto;
+	}
+	#cboxLoadedContent .columns {
+		padding: 0;
+	}
 	#maincontent {
 		max-width: inherit;
 	}
@@ -246,6 +598,40 @@ body .wpcf7 input[type="text"], body .wpcf7 input[type="email"] {
 	}
 	.flt_right {
 		float: none;
+	}
+	.nvr-people .row .three{
+		width: 100%;
+	}
+	.mem_mail, .mob_hide {
+		display: none;
+	}
+	#cboxContent .left_biodata p {
+		padding-right: 0;
+	}
+	.mem_m_mail {
+		display: block;
+	}
+	.mem_design {
+    	float: none;
+    	width: inherit;
+    	clear: 	both;
+	}
+	h2.bio_title span {
+	    font-size: 25px;
+    	padding: 3px 60px 3px 14px;
+    	font-weight: normal;
+	}
+	.nvr-people .row .three {
+		float: left;
+		width: 50%;
+	}
+	.nvr-people .leader_mail a {
+		background: #217FB2;
+		color: #FFF;
+		display: block;
+		padding: 9px 20px;
+		text-transform: uppercase;
+		font-size: 15px;
 	}
 }
 
@@ -270,57 +656,11 @@ body .wpcf7 input[type="text"], body .wpcf7 input[type="email"] {
 
 	@media only screen and (min-width: 360px){
 
-		li.prop-item-container[style]{width:368px!important;}
-	3
+		li.prop-item-container[style]{width:330px!important;}
+    }
+
 	@media only screen and (min-width: 480px){
 
 		li.prop-item-container[style]{width:460px!important;}
-		.propcarousel {width:400px;}
+		/*.propcarousel {width:400px;}*/
 	}
-.flex-direction-nav{
-display:none;
-}
-.site_plan{
-text-align:center;
-}
-
-.site_plan p{
- background-color: #25bcba;
-    color: white;
-    padding: 15px;
-    width: 14%;
-}
-.tenants{
-float:left;
-width:50%;
-}
-.tenants h3{
-text-transform: uppercase;
-}
-.tenants table{
-width:80%;
-}
-.tenants table tr:nth-child(2n + 1){
- background-color: #E2E2E2;
-}
-.oi h3{
-text-transform: uppercase;
-}
-.oi{
-float:left;
-width:50%;
-
-}
-.oi table{
-width:80%;
-}
-
-.oi table tr:nth-child(even){
- background-color: #E2E2E2;
-}
-.prop_side{
-width:20%!important;
-}
-.eight{
-width:79.667%!important;
-}

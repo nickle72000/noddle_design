@@ -58,6 +58,12 @@ function nvr_styles() {
 		$nvr_custom_css = nvr_print_stylesheet();
 		wp_add_inline_style( 'stylecustom', $nvr_custom_css );
 		
+		wp_register_style('colorbox', THE_STYLEURI . 'colorbox.css', '', '', 'screen, all');
+		wp_enqueue_style('colorbox');
+
+		$nvr_custom_css = nvr_print_stylesheet();
+		wp_add_inline_style( 'colorbox', $nvr_custom_css );
+		
 		wp_register_style('switcher-css', THE_CSSURI . 'style-switcher.css', '', '', 'screen, all');
 		if( nvr_get_option( THE_SHORTNAME . '_enable_switcher')){
 			wp_enqueue_style('switcher-css');

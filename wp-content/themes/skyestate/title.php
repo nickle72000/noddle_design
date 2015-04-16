@@ -34,7 +34,7 @@ if(is_singular('portofolio') || is_attachment()){
 	
 }elseif(is_search()){
 	echo ' <h1 class="pagetitle"><span>';
-	printf( __( 'Search Results for %s', THE_LANG ), '<span>' . get_search_query() . '</span>' );
+	printf( __( 'Search Results for %s', THE_LANG ), '<span>' .'"'. get_search_query() .'"'. '</span>' );
 	echo '</span> </h1>';
 	
 }elseif(is_404()){

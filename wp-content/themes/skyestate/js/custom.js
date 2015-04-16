@@ -1386,3 +1386,17 @@ function pay_pack_via_paypal(){
 	});
 
 }
+
+jQuery(document).ready(function($){
+	$( ".team_members" ).insertBefore( "#footerwrapper" );
+	$(".inline").colorbox({inline:true, width:"70%"});
+	var win_width = $(window).width();
+	if(win_width <= 767){
+		$(".inline").colorbox({inline:true, width:"95%"});
+		$('.nvr-people .leader_mail span').each(function() {
+    		var text = $(this).text();
+    		$(this).html( "<i class='fa fa-envelope'></i>Email" );
+		});
+	}
+});
+

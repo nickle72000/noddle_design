@@ -687,7 +687,7 @@ function the_sub_field($field_name)
 		$value = implode(', ',$value);
 	}
 	
-	echo $value;
+	return $value;
 }
 
 

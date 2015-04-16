@@ -1990,7 +1990,7 @@ h2.trigger a:hover {}
 	-webkit-transform: scale(1);
 	transform: scale(1);
 }
-.nvr-noimage{display:block;width:100%;height:199px; background-image:url(../images/noimage.png); background-repeat:no-repeat; background-position:center;}
+.nvr-noimage{display:block;width:100%;height:168px; background-image:url(../images/noimage.png); background-repeat:no-repeat; background-position:center;}
 .nvr-pf-img a.image, div.frameimg a.image{
 	display:block;
 	position:absolute;
@@ -2372,6 +2372,24 @@ li.prop-item-container .nvr-prop-box:hover .nvr-prop-img a.image{
 .single-propertys #slider #carouselitems.caritem2 .flex-next{margin-right:-177px;}
 .single-propertys #slider #carouselitems.caritem3 .flex-next{margin-right:-266px;}
 .single-propertys #slider #carouselitems.caritem4 .flex-next{margin-right:-356px;}
+
+.single-projects   #slider a.prettylink{position:relative; display:block;}
+.single-projects   #slider a.prettylink i{width:130px; height:130px; line-height:130px; text-align:center; font-size:80px; position:absolute; top:50%; left:50%; margin:-65px 0px 0px -65px; opacity:0; transition:opacity 0.5s; -moz-transition:opacity 0.5s; -webkit-transition:opacity 0.5s;}
+.single-projects   #slider li:hover a.prettylink i{opacity:0.5;}
+.single-projects   #slider #carouselitems{position:absolute; bottom:0px; z-index:300; width:100%; text-align:center;}
+.single-projects  #slider #carouselitems .flex-viewport{display:inline-block; max-width:890px;}
+.single-projects  #slider #carouselitems ul.slides li{width:177px !important; margin-right:1px; cursor:pointer; opacity:0.7; transition:opacity 0.5s; -moz-transition:opacity 0.5s; -webkit-transition:opacity 0.5s;}
+.single-projects  #slider #carouselitems ul.slides li:hover, .single-projects  #slider #carouselitems ul.slides li.flex-active-slide{opacity:1;}
+.single-projects  #slider #carouselitems .flex-control-nav{display:none;}
+.single-projects  #slider #carouselitems .flex-prev{left:50%; margin-left:-445px;}
+.single-projects  #slider #carouselitems.caritem2 .flex-prev{margin-left:-178px;}
+.single-projects  #slider #carouselitems.caritem3 .flex-prev{margin-left:-267px;}
+.single-projects  #slider #carouselitems.caritem4 .flex-prev{margin-left:-356px;}
+.single-projects  #slider #carouselitems .flex-next{right:50%; margin-right:-445px;}
+.single-projects  #slider #carouselitems.caritem2 .flex-next{margin-right:-177px;}
+.single-projects  #slider #carouselitems.caritem3 .flex-next{margin-right:-266px;}
+.single-projects  #slider #carouselitems.caritem4 .flex-next{margin-right:-356px;}
+
 .prop-single-title{font-size:14px; font-weight:700; line-height:14px; letter-spacing:2px; text-transform:uppercase; margin-bottom:15px;}
 .prop-single-content{font-size:13px; }
 .prop-single-desc, .prop-single-detail, .prop-single-feature, .prop-single-maps, .prop-single-agent, .prop-single-listing{margin-bottom:36px; padding-bottom:10px; border-width:0px 0px 1px 0px; border-style:solid;}

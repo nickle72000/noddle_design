@@ -31,5 +31,5 @@ require_once THE_ENGINEPATH . 'engine-start.php';
 
 //you can add your own function in here
 if(file_exists(THE_STYLEPATH . 'functions-custom.php')){
-	include_once THE_STYLEPATH . 'functions-custom.php';
+    include_once THE_STYLEPATH . 'functions-custom.php';
 }

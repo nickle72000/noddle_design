@@ -1,42 +1,27 @@
 <?php
 add_action('add_meta_boxes', 'nvr_add_metabox');
-add_action( 'add_meta_boxes', 'add_events_metaboxes' );
+
 // Add meta box
-function wpt_events_location() {
-	global $post;
-
-	// Noncename needed to verify where the data originated
-	echo '<input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="' . 
-	wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
-	
-	// Get the location data if its already been entered
-	$location = get_post_meta($post->ID, '_location', true);
-	
-	// Echo out the field
-	echo '<input type="text" name="_location" value="' . $location  . '" class="widefat" />';
-
-}
-
 function add_events_metaboxes() {
-$nvr_meta_boxes0 = array(
+$nvr_shortname = THE_SHORTNAME;
+$nvr_initial = THE_INITIAL;
+$nvr_meta_boxes[] = array(
 	'id' => 'page-property-option-meta-box',
-	'title' => __('Page Property Options',THE_LANG),
-	'page' => 'page',
+	'title' => __('Page Project Options',THE_LANG),
+	'page' => 'projects',
 	'showbox' => 'meta_option_show_box',
 	'context' => 'normal',
 	'priority' => 'high',
 	'fields' => array(
 		array(
-			'name' => __('Property Categories',THE_LANG),
-			'desc' => '<em>'.__('Select more than one property category to make the property filter works.',THE_LANG).'</em>',
+			'name' => __('Project Categories',THE_LANG),
+			'desc' => '<em>'.__('Select Project category to make the property filter works.',THE_LANG).'</em>',
 			'id' => 'prop_categories',
 			'type' => 'checkbox-property-categories',
 			'std' => ''
 		)));
-		$metaargs = array(
-				'meta_array' => $nvr_meta_boxes0
-			);
-add_meta_box('prop_categories', __('Property Categories',THE_LANG), 'meta_option_show_box', 'projects', 'normal', 'high',$metaargs);
+		
+
 	
 	$nvr_countries = nvr_country_list();
 $nvr_optcountry = array(
@@ -47,38 +32,38 @@ for($i=0;$i<count($nvr_countries);$i++){
 	$nvr_optcountry[$nvr_country] = $nvr_country;
 }
 	
-	$nvr_meta_boxes1 = array(
+	$nvr_meta_boxes[] = array(
 	'id' => 'propertys-address-option-meta-box',
-	'title' => __('Property Address',THE_LANG),
-	'page' => 'propertys',
+	'title' => __('Project Address',THE_LANG),
+	'page' => 'projects',
 	'showbox' => 'meta_option_show_box',
 	'context' => 'normal',
 	'priority' => 'high',
 	'fields' => array(
 		array(
 			'name' => __('Address',THE_LANG),
-			'desc' => '<em>'.__('Input the property address.',THE_LANG).'</em>',
+			'desc' => '<em>'.__('Input the Project address.',THE_LANG).'</em>',
 			'id' => $nvr_initial.'_address',
 			'type' => 'textarea',
 			'std' => ''
 		),
 		array(
-			'name' => __('County',THE_LANG),
-			'desc' => '<em>'.__('Input the property county.',THE_LANG).'</em>',
+			'name' => __('City',THE_LANG),
+			'desc' => '<em>'.__('Input the Project city.',THE_LANG).'</em>',
 			'id' => $nvr_initial.'_county',
 			'type' => 'text',
 			'std' => ''
 		),
 		array(
 			'name' => __('State/Province',THE_LANG),
-			'desc' => '<em>'.__('Input the property state or province.',THE_LANG).'</em>',
+			'desc' => '<em>'.__('Input the Project state or province.',THE_LANG).'</em>',
 			'id' => $nvr_initial.'_state',
 			'type' => 'text',
 			'std' => ''
 		),
 		array(
 			'name' => __('Country',THE_LANG),
-			'desc' => '<em>'.__('Select the property country.',THE_LANG).'</em>',
+			'desc' => '<em>'.__('Select the Project country.',THE_LANG).'</em>',
 			'id' => $nvr_initial.'_country',
 			'type' => 'select',
 			'options' => $nvr_optcountry,
@@ -86,7 +71,7 @@ for($i=0;$i<count($nvr_countries);$i++){
 		),
 		array(
 			'name' => __('Zip/Post Code',THE_LANG),
-			'desc' => '<em>'.__('Input the property ZIP or post code.',THE_LANG).'</em>',
+			'desc' => '<em>'.__('Input the Project ZIP or post code.',THE_LANG).'</em>',
 			'id' => $nvr_initial.'_zipcode',
 			'type' => 'text',
 			'std' => ''
@@ -94,13 +79,65 @@ for($i=0;$i<count($nvr_countries);$i++){
 	)
 );
 
-$metaargs = array(
-				'meta_array' => $nvr_meta_boxes1
-			);
-add_meta_box('prop_address', __('Property Address',THE_LANG), 'meta_option_show_box', 'projects', 'normal', 'high',$metaargs);
-	}
-	
 
+
+
+$nvr_meta_boxes[] = array(
+	'id' => 'propertys-gallery-option-meta-box',
+	'title' => __('Project Gallery',THE_LANG),
+	'page' => 'projects',
+	'showbox' => 'meta_option_show_box',
+	'context' => 'normal',
+	'priority' => 'high',
+	'fields' => array(
+		array(
+			'name' => __('Project Images Gallery',THE_LANG),
+			'desc' => '<em>'.__('You can select the images for your Project from here.',THE_LANG).'</em>',
+			'id' => $nvr_initial.'_imagesgallery',
+			'type' => 'imagegallery',
+			'std' => ''
+		)
+	)
+);
+$nvr_optonoff = array(
+	'true' => 'On',
+	'false' => 'Off'
+);
+	$nvr_meta_boxes[] = array(
+	'id' => 'propertys-slider-option-meta-box',
+	'title' => __('Project Slider Options',THE_LANG),
+	'page' => 'projects',
+	'showbox' => 'meta_option_show_box',
+	'context' => 'normal',
+	'priority' => 'high',
+	'fields' => array(
+		array(
+			'name' => __('Enable Slider',THE_LANG),
+			'desc' => '<em>'.__('Choose \'On\' if you want to show the slider.',THE_LANG).'</em>',
+			'id' => 'enable_slider',
+			'type' => 'select',
+			'options' => $nvr_optonoff,
+			'std' => 'false'
+		),
+		array(
+			'name' => __('External Slider Shortcode',THE_LANG),
+			'desc' => '<em>'.__('You can put the layerslider or revolution slider shortcode in here. It will overwrite the default slider.',THE_LANG).'</em>',
+			'id' => 'slider_layerslider',
+			'type' => 'text',
+			'std' => ''
+		)
+	)
+);
+//echo "<pre>";print_r($nvr_meta_boxes);
+
+	foreach($nvr_meta_boxes as $nvr_meta_box){
+	$metaargs = array(
+				'meta_array' => $nvr_meta_box
+			);
+			//echo $nvr_meta_box['id'].','. $nvr_meta_box['title'].','. $nvr_meta_box['showbox'].','. $nvr_meta_box['page'].','. $nvr_meta_box['context'].','. $nvr_meta_box['priority'];
+	add_meta_box($nvr_meta_box['id'], $nvr_meta_box['title'], $nvr_meta_box['showbox'], $nvr_meta_box['page'], $nvr_meta_box['context'], $nvr_meta_box['priority'], $metaargs);
+		}
+	}
 	
 function nvr_add_metabox() {
 	global $nvr_meta_boxes;
@@ -109,7 +146,6 @@ function nvr_add_metabox() {
 			$metaargs = array(
 				'meta_array' => $nvr_meta_box
 			);
-			
 			add_meta_box($nvr_meta_box['id'], $nvr_meta_box['title'], $nvr_meta_box['showbox'], $nvr_meta_box['page'], $nvr_meta_box['context'], $nvr_meta_box['priority'], $metaargs);
 		}
 	}
@@ -463,8 +499,8 @@ function nvr_create_metabox($meta_box){
 				
 				$returnstring .= $row2c;
 				foreach ($field['options'] as $option => $val){
-					$selectedstr = ($optvalue==$option)? 'optselected' : '';
-					$checkedstr = ($optvalue==$option)? 'checked="checked"' : '';
+					$selectedstr = ($optvalue==$option || $option=="one-col")? 'optselected' : '';
+					$checkedstr = ($optvalue==$option || $option=="one-col")? 'checked="checked"' : '';
 					$returnstring .= '<img src="'.$val.'" class="optionimg '.$selectedstr.'" onclick="document.getElementById(\''.$field['id'].$option.'\').checked=true" style="display:inline-block;" />';
 					$returnstring .= '<input type="radio" name="'.$field['id'].'" id="'.$field['id'].$option.'" value="'.esc_attr( $option ).'" '.$checkedstr.' style="display:none;"/>';
 				}

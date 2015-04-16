@@ -199,6 +199,8 @@ function nvr_script() {
 			);
 
 		}
+		wp_register_script('jjquery.colorbox-min', THE_JSURI .'jquery.colorbox-min.js', array('jquery'), '1.0', true);
+		wp_enqueue_script('jjquery.colorbox-min');
 		
 		wp_register_script('jcustom', THE_JSURI .'custom.js', array('jquery'), '1.0', true);
 		wp_enqueue_script('jcustom');

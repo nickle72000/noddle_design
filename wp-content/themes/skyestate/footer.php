@@ -18,20 +18,20 @@
 				if(isset( $nvr_custom['_'.$nvr_initial.'_sectionbuilder'][0] )){
                     $nvr_sectionbuilders = unserialize($nvr_custom['_'.$nvr_initial.'_sectionbuilder'][0]);
                 }
-			
+		
 				
-                if($nvr_pagelayout!='one-col' && $nvr_pid!="2133"){ 
+                if($nvr_pagelayout!='one-col' && $nvr_pid!="2133" && $nvr_pid!="2703" && get_post_type( $nvr_pid )!="propertys"){ 
                 ?>
                 
                         <div class="clearfix"></div>
                     </div><!-- main -->
                 </section><!-- content -->
-                <aside id="sidebar" class="four columns">
+                <aside id="sidebar" class="three columns">
                     <?php get_sidebar();?>  
                 </aside><!-- sidebar -->
                 
                 <?php 
-                } else if($nvr_pid=="2133"){
+                } else if($nvr_pid=="2133" || $nvr_pid=="2703"){
 				$nvr_argquery='';
 				$nvr_argquery = array(
 		'post_type' => 'propertys');
@@ -43,34 +43,47 @@
 		endwhile;
 		//print_r($wpcf_street_address);
 	$result=array_unique($wpcf_street_address);
-	
-
+	 global $state,$search,$city,$type,$status_prop;
+	registerglobal('state','city','type','status_prop','search');
+if($nvr_pid=="2133"){ $pagetype="property";}else if($nvr_pid=="2703"){$pagetype="project";}
 				?>
+				<input type="hidden" name="type" value="<?php echo $pagetype;?>"/>
 				 <div class="clearfix"></div>
                     </div><!-- main -->
                 </section><!-- content -->
-				<aside id="sidebar" class="four columns prop_side">
-				
-				<div><form action="" id="search_prop"><input type="text" name="text" id="search" value="<?php echo $_GET['search'];?> "/><input type="submit" name="submit" value="submit"/></form></div>
+				<aside id="sidebar" class="three columns prop_side">
+			
+				<div class="sidebar-search">
+                    <form action="" id="search_prop" class="form-search form-horizontal pull-left">
+                        <div class="input-append span12">
+                        <input type="text"  placeholder="Search Text"  class="search-query" name="text" id="search" value="<?php echo $search;?>"/>
+                            <button type="submit" class="btn"><i class="icon-search"></i></button>
+                        </div>   
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+
+				<div class="clearfix"></div>
+                <div class="leftside-filter">
                     <ul>
-					<li>Filter By:</li>
+					<li class="filter-title">Filter By:</li>
 					<li><select class="basic-example" >
 	<option value=""  >State</option>
 	<?php foreach($result as $val){
 	if($val!=""){
 	?>
-	<option value="<?php echo $val ;?>" <?php if($val==$_GET['state']){?>selected<?php }?>><?php echo $val ;?></option>
+	<option value="<?php echo $val ;?>" <?php if($val==$state){?>selected<?php }?>><?php echo $val ;?></option>
 	<?php }}?>
 </select></li>
-					<li><select class="city" <?php if($_GET['state']==""){?> disabled<?php }?>>
-					<option value=""  >City</option>
-					<?php if($_GET['state']!=''){
+					<li><select class="city" <?php if($state==""){?> disabled<?php }?>>
+					<option value="">City</option>
+					<?php if($state!=''){
 		$nvr_argquery='';
 				$nvr_argquery = array(
 		'post_type' => 'propertys');
 		$nvr_argquery2[] = array(
 					'key'		=> 'nvr_state',
-					'value'		=> $_GET['state'],
+					'value'		=> $state,
 					'compare' => '=',
 				);
 				$nvr_argquery['meta_query']=$nvr_argquery2;
@@ -84,11 +97,12 @@
 	$resultnvr_county=array_unique($nvr_county);
 	
 	foreach($resultnvr_county as $val){
+	if($val!=''){
 	?>
-	<option value="<?php echo $val ;?>" <?php if($val==$_GET['city']){?>selected<?php }?>><?php echo $val ;?></option>
-	<?php 	}}?>
+	<option value="<?php echo $val ;?>" <?php if($val==$city){?>selected<?php }?>><?php echo $val ;?></option>
+	<?php 	}}}?>
 					</select>
-<?php if($_GET['state']==""){?> <style>
+<?php if(!isset($state)){?> <style>
 
 #heapbox_44956659 .handler{
 
@@ -104,7 +118,7 @@ dislpay:none;
 					//print_r($terms);
 					foreach ( $terms as $term ) {
 					?>
-					<option value="<?php echo $term->name ;?>" <?php if($term->name==$_GET['type']){?>selected<?php }?>><?php echo $term->name ;?></option>
+					<option value="<?php echo $term->name ;?>" <?php if($term->name==$type){?>selected<?php }?>><?php echo $term->name ;?></option>
 					<?php }?>
 					</select>
 					
@@ -116,10 +130,11 @@ dislpay:none;
 					<?php  $nvr_propstatuses = nvr_get_option($nvr_shortname.'_property_status'); 
 					   for($i=0;$i<count($nvr_propstatuses);$i++){
 					?>
-					<option value="<?php echo str_replace(' ', '_',$nvr_propstatuses[$i]) ;?>" <?php if(str_replace(' ', '_',$nvr_propstatuses[$i])==str_replace(' ', '_',$_GET['status_prop'])){?>selected<?php }?>><?php echo $nvr_propstatuses[$i] ;?></option>
+					<option value="<?php echo str_replace(' ', '_',$nvr_propstatuses[$i]) ;?>" <?php if(str_replace(' ', '_',$nvr_propstatuses[$i])==str_replace(' ', '_',$status_prop)){?>selected<?php }?>><?php echo $nvr_propstatuses[$i] ;?></option>
 					<?php }?>
 					</select></li>
 					</ul>
+                  </div>
                 </aside>
 				
 				<?php }

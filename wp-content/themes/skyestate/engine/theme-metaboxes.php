@@ -17,21 +17,34 @@ $nvr_optionsidebarval = get_option( $nvr_shortname . '_sidebar');
 		
 	}
 
+$nvr_peoplequery = $blogusers = get_users( 'role=subscriber' );
+$nvr_optpropagent = array(
+	'none' => __('None', THE_LANG)
+);
+
+foreach ( $nvr_peoplequery as $user ) {
+	//$nvr_peoplequery->next_post();
+	$nvr_optpropagent[$user->display_name] = $user->display_name;
+}
+wp_reset_postdata();
+
+//nick project
+
 $nvr_peoplequery = new WP_Query(array(
-	'post_type' => 'peoplepost',
+	'post_type' => 'projects',
 	'posts_per_page' => -1
 ));
 
-$nvr_optpropagent = array(
+$nvr_optprojects = array(
 	'none' => __('None', THE_LANG)
 );
 
 while($nvr_peoplequery->have_posts() ){
 	$nvr_peoplequery->next_post();
-	$nvr_optpropagent[$nvr_peoplequery->post->post_name] = $nvr_peoplequery->post->post_title;
+	$nvr_optprojects[$nvr_peoplequery->post->post_name] = $nvr_peoplequery->post->post_title;
 }
 wp_reset_postdata();
-
+//nick project
 $nvr_propstatuses = nvr_get_option($nvr_shortname.'_property_status');
 $nvr_optpropstatus = array(
 	'Normal' => __('Normal', THE_LANG)
@@ -589,11 +602,19 @@ $nvr_meta_boxes[] = array(
 			'std' => 'Normal'
 		),
 		array(
-			'name' => __('Agent responsible',THE_LANG),
-			'desc' => '<em>'.__('Select the agent of the property.',THE_LANG).'</em>',
+			'name' => __('User',THE_LANG),
+			'desc' => '<em>'.__('Select the User of the property.',THE_LANG).'</em>',
 			'id' => $nvr_initial.'_agent',
 			'type' => 'select',
 			'options' => $nvr_optpropagent,
+			'std' => 'none'
+		),
+		array(
+			'name' => __('Project list',THE_LANG),
+			'desc' => '<em>'.__('Select the Project .',THE_LANG).'</em>',
+			'id' => $nvr_initial.'_project',
+			'type' => 'select',
+			'options' => $nvr_optprojects,
 			'std' => 'none'
 		)
 	)
@@ -668,8 +689,8 @@ $nvr_meta_boxes[] = array(
 			'std' => ''
 		),
 		array(
-			'name' => __('County',THE_LANG),
-			'desc' => '<em>'.__('Input the property county.',THE_LANG).'</em>',
+			'name' => __('City',THE_LANG),
+			'desc' => '<em>'.__('Input the property city.',THE_LANG).'</em>',
 			'id' => $nvr_initial.'_county',
 			'type' => 'text',
 			'std' => ''
